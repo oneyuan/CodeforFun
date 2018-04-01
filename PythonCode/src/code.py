@@ -1,3 +1,4 @@
+import heapq
 class Solution(object):
     '''
     classdocs
@@ -58,6 +59,14 @@ class Solution(object):
             return(b)
         
         
+    def maximumProduct0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        a, b = heapq.nlargest(3, nums), heapq.nsmallest(2, nums)
+        return max(a[0]*a[1]*a[2], a[0]*b[0]*b[1])
+        
     def isToeplitzMatrix(self, matrix):
         """
         :type matrix: List[List[int]]
@@ -104,6 +113,19 @@ class Solution(object):
                 return max_num_index
             else: return -1
         else:return 0
+        
+    def dominantIndex0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) <= 1:
+            return 0
+        m = max(nums)
+        ind = nums.index(m)
+        del nums[ind]
+        m_2 = max(nums)
+        return ind if m >= 2*m_2 else -1
        
 
     def minCostClimbingStairs(self, cost):
@@ -123,3 +145,17 @@ class Solution(object):
             return f[0]
         else:
             return f[1]
+        
+    def minCostClimbingStairs0(self, cost):
+        n = len(cost)
+        
+        if n==0 or n==1: return 0 
+        
+        minCost0, minCost1 = cost[0],cost[1]
+        
+        for i in range(2,n):
+            minCost0, minCost1 = minCost1, min(minCost0, minCost1) + cost[i]
+        
+        return min(minCost0, minCost1)
+    
+    
