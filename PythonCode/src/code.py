@@ -1,10 +1,7 @@
-
 class Solution(object):
     '''
     classdocs
     '''
-
-
     def maximumProduct(self,nums):
         """
         :type nums: List[int]
@@ -107,3 +104,22 @@ class Solution(object):
                 return max_num_index
             else: return -1
         else:return 0
+       
+
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        Hint: f[i] = cost[i] + min(f[i +1], f[i+2]) f[i is the final cost to climb to top from step i.]
+        """
+        f = [1] * 1000
+        f[len(cost)-1] = cost[-1]
+        f[len(cost)-2] = cost[-2]
+        i = len(cost) - 3
+        while i >= 0:
+            f[i] = cost[i] + min(f[i+1], f[i+2])
+            i -= 1
+        if f[0] < f[1]:
+            return f[0]
+        else:
+            return f[1]
