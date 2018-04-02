@@ -1,4 +1,5 @@
 import heapq
+from builtins import int
 class Solution(object):
     '''
     classdocs
@@ -158,4 +159,33 @@ class Solution(object):
         
         return min(minCost0, minCost1)
     
-    
+    def pivotIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        [] return -1 sum([]) = 0
+        """
+        a = 0
+        t = sum(nums)
+        if len(nums) > 1:
+            for i in range(len(nums)):
+                x = t - a - nums[i]
+                if x  == a:
+                    return i
+                a += nums[i]
+            return -1
+        else:
+            return -1
+        
+    def pivotIndex0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left, right = 0, sum(nums)
+        for index, num in enumerate(nums):
+            right -= num
+            if left == right:
+                return index
+            left += num
+        return -1
