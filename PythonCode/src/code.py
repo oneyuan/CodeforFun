@@ -230,3 +230,77 @@ class Solution(object):
                 return True
             else:
                 return False
+            
+            
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        a = {}
+        b = []
+        c = {}
+        nums.reverse()
+        r = nums[:]
+        nums.reverse()
+        for i in range(len(nums)):
+            if nums[i] in a:
+                a[nums[i]] += 1
+            else:
+                a[nums[i]] = 1
+        y = 0
+        for x in a:
+            if a[x] > y:
+                y = a[x]
+                b = [x]
+            elif a[x] == y:
+                b.append(x)
+        if len(b) == 1:
+            begin = nums.index(b[0])
+            end = len(nums) - r.index(b[0]) - 1
+            return end - begin + 1
+        else:
+            for t in range(len(b)):
+                begin = nums.index(b[t])
+                end = len(nums) - r.index(b[t]) - 1
+                c[t] = end - begin + 1
+            return min(c.values())
+        
+    def findShortestSubArray0(self, nums):
+        
+        diction = {}
+        
+        for i in nums:
+            if i not in diction:
+                diction[i] = 1
+            else:
+                diction[i] += 1
+            
+        degree = max(list(diction.values()))
+        
+        if degree == 1:
+            return 1
+        
+        max_value = []
+        
+        for i in diction:
+            if diction[i] == degree:
+                max_value.append(i)
+        
+        min_length = 10000000000
+        
+        for i in max_value:
+            head = 0
+            tail = 0
+            for j in range(len(nums)):
+                if nums[j] == i:
+                    head = j
+                    break
+            for j in range(len(nums)-1,-1,-1):
+                if nums[j] == i:
+                    tail = j
+                    break
+            if min_length > tail - head + 1:
+                min_length = tail - head + 1
+        
+        return min_length
