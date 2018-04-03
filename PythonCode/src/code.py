@@ -189,3 +189,44 @@ class Solution(object):
                 return index
             left += num
         return -1
+    
+    
+    def isOneBitCharacter(self, bits):
+        """
+        :type bits: List[int]
+        :rtype: bool
+        """
+        if len(bits) == 1:
+            return True
+        if len(bits) == sum(bits) + 1:
+            if sum(bits) % 2 == 1:
+                return False
+            else:
+                return True
+        i = -2 
+        while abs(i) <= len(bits):
+            if bits[i] == 0 and abs(i) % 2 == 0:
+                return True
+            elif bits[i] == 0 and  abs(i) % 2 == 1:
+                return False
+            i -= 1
+            
+            
+    def isOneBitCharacter0(self, bits):
+        """
+        :type bits: List[int]
+        :rtype: bool
+        """
+        N = len(bits)
+        flag = 0
+        i = N-2
+        if bits[N-2] == 0:
+            return True
+        else:
+            while i>=0 and bits[i]==1:
+                flag += 1
+                i -= 1
+            if flag%2 == 0:
+                return True
+            else:
+                return False
