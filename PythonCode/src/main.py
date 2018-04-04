@@ -10,4 +10,5 @@ nums = [0,1]
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
 #print(w.minCostClimbingStairs(cost))
-print(w.pivotIndex(nums))
+#print(w.pivotIndex(nums))
+print(w.maxAreaOfIsland([[0,1,1,1,0,0,0,0]]))

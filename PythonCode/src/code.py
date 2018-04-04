@@ -304,3 +304,74 @@ class Solution(object):
                 min_length = tail - head + 1
         
         return min_length
+    
+    
+    def maxAreaOfIsland(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        a = []
+        c = []
+        for  i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    a.append((i,j))
+
+        if len(a) == 0:
+            return 0
+
+        def lookAround(tup,b,a):
+            if (tup[0],tup[1]+1) in a and (tup[0],tup[1]+1) not in b:
+                b.append((tup[0],tup[1]+1))
+                a.remove((tup[0],tup[1]+1))
+                lookAround((tup[0],tup[1]+1),b,a)
+            if (tup[0],tup[1]-1) in a and (tup[0],tup[1]-1) not in b:
+                b.append((tup[0],tup[1]-1))
+                a.remove((tup[0],tup[1]-1))
+                lookAround((tup[0],tup[1]-1),b,a)
+            if (tup[0]-1,tup[1]) in a and (tup[0]-1,tup[1]) not in b:
+                b.append((tup[0]-1,tup[1]))
+                a.remove((tup[0]-1,tup[1]))
+                lookAround((tup[0]-1,tup[1]),b,a)
+            if (tup[0]+1,tup[1]) in a and (tup[0]+1,tup[1]) not in b:
+                b.append((tup[0]+1,tup[1]))
+                a.remove((tup[0]+1,tup[1]))
+                lookAround((tup[0]+1,tup[1]),b,a)
+        
+        for item in a:
+            b = [item]
+            lookAround(item,b,a)
+            c.append(len(b))
+
+        return max(c)
+    
+    
+    def maxAreaOfIsland0(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        def dfs(line, column):
+            grid[line][column] = 0
+            result = 1
+            if line>0:
+                if grid[line-1][column]:
+                    result+=dfs(line-1, column)
+            if line<len(grid)-1:
+                if grid[line+1][column]:
+                    result+=dfs(line+1, column)
+            if column>0:
+                if grid[line][column-1]:
+                    result+=dfs(line, column-1)
+            if column<len(grid[line])-1:
+                if grid[line][column+1]:
+                    result+=dfs(line, column+1)
+            return result
+        result = 0
+        for line in range(len(grid)):
+            for column in range(len(grid[line])):
+                if grid[line][column]:
+                    result = max(result,dfs(line, column))
+        return result
+        
