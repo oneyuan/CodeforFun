@@ -375,3 +375,78 @@ class Solution(object):
                     result = max(result,dfs(line, column))
         return result
         
+        
+    def findLengthOfLCIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        b= [1]
+        count = 1
+        if len(nums) == 0:   #consider nums is null
+            return 0
+        for i in range(len(nums)-1):
+            if nums[i+1] > nums[i]:
+                if i == len(nums) - 2:
+                    count += 1
+                    b.append(count)
+                else:
+                    count += 1
+            else:
+                b.append(count)
+                count = 1
+        return max(b)
+    
+    def findLengthOfLCIS0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 1:
+            return 0
+        cur_len = 1
+        max_len = 1
+        for i in range(1,len(nums)):
+            if nums[i] > nums[i-1]:
+                cur_len = cur_len + 1
+            else:
+                cur_len = 1
+                
+            if cur_len > max_len:
+                max_len = cur_len
+        return max_len
+    
+    def checkPossibility(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        b = []
+        count = 1
+        if len(nums) == 1:
+            return True
+        for i in range(1,len(nums)):
+            if len(b) > 2:
+                return False 
+            if nums[i] >= nums[i-1]:
+                if i == len(nums) - 1:
+                    count += 1
+                    b.append(count)
+                else:
+                    count += 1
+            elif i == len(nums):
+                b.append(1)
+            else:
+                b.append(count)
+                r_min = nums[i]
+                if count == 1:
+                    l_max = nums[i]
+                else:
+                    l_max = nums[i-2]
+                count = 1
+        if len(b) == 1:
+            return True
+        if sum(b) == len(nums) and len(b) == 2 and l_max <= r_min: #misunderstand the meaning [-1,4,2,3] [4,2,1] [3,4,2,3]
+            return True
+        else:
+            return False
