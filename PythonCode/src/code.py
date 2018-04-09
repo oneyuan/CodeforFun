@@ -420,6 +420,7 @@ class Solution(object):
         """
         :type nums: List[int]
         :rtype: bool
+        #misunderstand the meaning[1] [-1,4,2,3] [4,2,1] [3,4,2,3] [2,3,3,2,4]
         """
         b = []
         count = 1
@@ -427,26 +428,45 @@ class Solution(object):
             return True
         for i in range(1,len(nums)):
             if len(b) > 2:
-                return False 
+                return False
             if nums[i] >= nums[i-1]:
-                if i == len(nums) - 1:
+                if i == len(nums)-1:
                     count += 1
                     b.append(count)
                 else:
                     count += 1
-            elif i == len(nums):
+            elif i == len(nums) - 1:
+                b.append(count)
                 b.append(1)
             else:
                 b.append(count)
-                r_min = nums[i]
-                if count == 1:
-                    l_max = nums[i]
-                else:
-                    l_max = nums[i-2]
                 count = 1
-        if len(b) == 1:
+                c = nums[i-2:i+2]
+        if len(b) > 2:
+            return False
+        elif len(b) == 1:
             return True
-        if sum(b) == len(nums) and len(b) == 2 and l_max <= r_min: #misunderstand the meaning [-1,4,2,3] [4,2,1] [3,4,2,3]
+        elif b[0] == 1:
             return True
         else:
-            return False
+            if c[1] <= c[3] or c[0] <= c[2]:
+                return True
+            else:
+                return False
+            
+    def checkPossibility0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        possibility_flag = False
+        for i in range(1, len(nums)):
+            if nums[i] < nums[i-1]:
+                if possibility_flag:
+                    return False
+                possibility_flag = True
+                if (i-2 < 0 or i-2 >= 0 and nums[i-2] < nums[i]) or (i+1 >= len(nums) or i+1 < len(nums) and nums[i+1] > nums[i-1]):
+                    pass
+                else:
+                    return False
+        return True
