@@ -1,5 +1,7 @@
+#coding: utf-8 -
 import heapq
 import math
+import copy
 from builtins import int
 from pstats import count_calls
 class Solution(object):
@@ -96,7 +98,7 @@ class Solution(object):
                     return False
         return True
     
-    def dominantIndex(self, nums): #Ö»ÓÐÒ»¸öÔªËØµÄÁÐ±í     °´Ë³ÐòÒÀ´ÎµÝÔöµÄÁÐ±í     µÝ¼õµÄÁÐ±í      º¬0µÄÁÐ±í    ³õÊ¼ÖµÉèÖÃÊÇ·ñÕýÈ·
+    def dominantIndex(self, nums): #Ö»ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½Øµï¿½ï¿½Ð±ï¿½     ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½     ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½Ð±ï¿½      ï¿½ï¿½0ï¿½ï¿½ï¿½Ð±ï¿½    ï¿½ï¿½Ê¼Öµï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·
         """
         :type nums: List[int]
         :rtype: int
@@ -478,7 +480,7 @@ class Solution(object):
         :type M: List[List[int]]
         :rtype: List[List[int]]
         """
-        N = M[:]
+        N = copy.deepcopy(M)
         for i in range(len(M)):
             for j in range(len(M[0])):
                 count = 0
@@ -490,3 +492,50 @@ class Solution(object):
                             count += 1
                 N[i][j] = math.floor(temp/count)
         return N
+
+
+    def imageSmoother0(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        m, n = len(M), len(M[0])
+        if m + n <= 2: return M
+        mat = [[0] * n for i in range(m)]
+        if m == 1:
+            mat[0][0] = (M[0][0] + M[0][1]) // 2
+            for j in range(1, n - 1):
+                mat[0][j] = (M[0][j - 1] + M[0][j] + M[0][j + 1]) // 3
+            mat[0][n - 1] = (M[0][n - 2] + M[0][n - 1]) // 2
+            return mat
+        if n == 1:
+            mat[0][0] = (M[0][0] + M[1][0]) // 2
+            for i in range(1, m - 1):
+                mat[i][0] = (M[i - 1][0] + M[i][0] + M[i + 1][0]) // 3
+            mat[m - 1][0] = (M[m - 2][0] + M[m - 1][0]) //2
+            return mat
+        
+        # m, n >= 2
+        # four vertex
+        mat[0][0] = (M[0][0] + M[0][1] + M[1][0] + M[1][1]) // 4
+        mat[0][n - 1] = (M[0][n - 2] + M[0][n - 1] + M[1][n - 2] + M[1][n - 1]) // 4
+        mat[m - 1][0] = (M[m - 2][0] + M[m - 2][1] + M[m - 1][0] + M[m - 1][1]) // 4
+        mat[m - 1][n - 1] = (M[m - 2][n - 2] + M[m - 2][n - 1] + M[m - 1][n - 2] + M[m - 1][n - 1]) // 4
+        
+        # first row
+        for i in range(1, n - 1):
+            mat[0][i] = (M[0][i - 1] + M[0][i] + M[0][i + 1] + M[1][i - 1] + M[1][i] + M[1][i + 1]) // 6
+        # median row
+        for i in range(1, m - 1):
+            # first col
+            mat[i][0] = (M[i - 1][0] + M[i - 1][1] + M[i][0] + M[i][1] + M[i + 1][0] + M[i + 1][1]) // 6
+            # core
+            for j in range(1, n - 1):
+                mat[i][j] = (M[i - 1][j - 1] + M[i - 1][j] + M[i - 1][j + 1] + M[i][j - 1] + M[i][j] + M[i][j + 1] + M[i + 1][j - 1] + M[i + 1][j] + M[i + 1][j + 1]) // 9
+            # last col
+            mat[i][n - 1] = (M[i - 1][n - 2] + M[i - 1][n - 1] + M[i][n - 2] + M[i][n - 1] + M[i + 1][n - 2] + M[i + 1][n - 1]) // 6
+            
+        # last row
+        for i in range(1, n - 1):
+            mat[m - 1][i] = (M[m - 2][i - 1] + M[m - 2][i] + M[m - 2][i + 1] + M[m - 1][i - 1] + M[m - 1][i] + M[m - 1][i + 1]) // 6
+        return mat

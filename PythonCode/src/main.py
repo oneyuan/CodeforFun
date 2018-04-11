@@ -8,9 +8,7 @@ cost = [10, 15, 20]
 nums = [3,4,2,3]
 nums1 = [4,2,1]
 nums2 = [2,3,3,2,4]
-M = [[1,1,1],
- [1,0,1],
- [1,1,1]]
+M = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]]
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
