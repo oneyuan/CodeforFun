@@ -558,3 +558,19 @@ class Solution(object):
             m = m + nums[i+k-1] - nums[i-1]
             b.append(m)
         return max(b)/k
+    
+    def findMaxAverage0(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """        
+        _sum = sum(nums[:k])
+        maxsum = _sum        
+        for i in range(k, len(nums)):
+            _sum = _sum - nums[i-k] + nums[i]            
+            if _sum > maxsum:
+                maxsum = _sum                            
+        return maxsum/k
+            
+        
