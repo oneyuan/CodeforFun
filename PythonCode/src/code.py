@@ -479,6 +479,8 @@ class Solution(object):
         """
         :type M: List[List[int]]
         :rtype: List[List[int]]
+         a[:], list(a), a*1, copy.copy(a) all can create a new list but
+        besides copy.deepcopy there is no way to deep copy a list which contains lists
         """
         N = copy.deepcopy(M)
         for i in range(len(M)):
