@@ -541,3 +541,20 @@ class Solution(object):
         for i in range(1, n - 1):
             mat[m - 1][i] = (M[m - 2][i - 1] + M[m - 2][i] + M[m - 2][i + 1] + M[m - 1][i - 1] + M[m - 1][i] + M[m - 1][i + 1]) // 6
         return mat
+    
+    
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        m = sum(nums[0:k])
+        b = [m]
+        if len(nums) == k:
+            return sum(nums)/k
+        print (m)
+        for i in range(1,len(nums)-k+1):
+            m = m + nums[i+k-1] - nums[i-1]
+            b.append(m)
+        return max(b)/k
