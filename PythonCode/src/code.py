@@ -1,5 +1,7 @@
 import heapq
+import math
 from builtins import int
+from pstats import count_calls
 class Solution(object):
     '''
     classdocs
@@ -470,3 +472,21 @@ class Solution(object):
                 else:
                     return False
         return True
+    
+    def imageSmoother(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        N = M[:]
+        for i in range(len(M)):
+            for j in range(len(M[0])):
+                count = 0
+                temp = 0
+                for a in (i-1, i , i+1):
+                    for b in (j-1, j, j+1):
+                        if 0 <= a < len(M) and 0 <= b < len(M[0]):
+                            temp += M[a][b]
+                            count += 1
+                N[i][j] = math.floor(temp/count)
+        return N
