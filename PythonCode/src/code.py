@@ -574,3 +574,39 @@ class Solution(object):
         return maxsum/k
             
         
+    def canPlaceFlowers(self, flowerbed, n):
+        """
+        :type flowerbed: List[int]]
+        :type n: int
+        :rtype: bool
+        state of art
+        """
+        count = 0
+        i = 0
+        if (len(flowerbed) + 1) // 2 < sum(flowerbed) + n:
+            return False
+        if len(flowerbed) == 1 and flowerbed[0] == 0:
+            return True
+        while i < len(flowerbed):
+            if flowerbed[i] == 1:
+                i += 2
+            else:
+                if i == 0 and flowerbed[i+1] == 0:
+                    count +=1
+                    i += 2
+                elif i == len(flowerbed) -1 and flowerbed[i-1] == 0:
+                    count +=1
+                    i += 2
+                elif i == len(flowerbed) -2 and flowerbed[i+1] == 0:
+                    count += 1
+                    i += 2
+                elif flowerbed[i-1] == 0 and flowerbed[i+1] == 0:
+                    count += 1
+                    i += 2
+                else:
+                    i += 2
+        if count >= n:
+            return True
+        else:
+            return False
+
