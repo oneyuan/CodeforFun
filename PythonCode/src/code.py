@@ -610,3 +610,48 @@ class Solution(object):
         else:
             return False
 
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        s = []
+        if len(nums)==1:
+            return 0
+        a = sorted(nums)
+        i=0
+        while i <len(nums):
+            if nums[i] == a[i]:
+                if i == len(nums)-1:
+                    if len(s) == 0:
+                        return 0
+                i += 1
+            else:
+                s.append(i)
+                i += 1
+        return s[-1] - s[0] + 1
+    
+    def findUnsortedSubarray0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left=0
+        right=len(nums)-1
+#left
+        while left<len(nums)-1 and nums[left]<=nums[left+1]:
+            left+=1
+        if left==len(nums)-1:
+            return 0
+        min_right=min(nums[left+1:])
+        while left>=0 and nums[left]>min_right:
+            left-=1
+#right
+        while right>0 and nums[right]>=nums[right-1]:
+            right-=1
+        if right==0:
+            return 0
+        max_left=max(nums[:right])
+        while right<=len(nums)-1 and max_left>nums[right]:
+            right+=1
+        return right-left-1
