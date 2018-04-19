@@ -705,3 +705,26 @@ class Solution(object):
             return ret
         else:
             return nums
+        
+    
+    def arrayPairSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        s = 0
+        for i in range(0,len(nums),2):
+            s += nums[i]
+        return s
+    
+    def arrayPairSum0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        return sum(nums[::2])
+    
+    
+    
