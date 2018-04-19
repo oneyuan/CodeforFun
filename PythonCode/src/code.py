@@ -655,3 +655,53 @@ class Solution(object):
         while right<=len(nums)-1 and max_left>nums[right]:
             right+=1
         return right-left-1
+    
+    
+    def matrixReshape(self, nums, r, c):
+        """
+        :type nums: List[List[int]]
+        :type r: int
+        :type c: int
+        :rtype: List[List[int]]
+        """
+        row = len(nums)
+        colum = len(nums[0])
+        count = -1
+        t = 0
+        matrix = []
+        for i in range(r):
+            matrix.append([])
+        if row * colum != r * c:
+            return nums
+        for i in range(row):
+            for j in range(colum):
+                count += 1
+                if count <= c-1:
+                    matrix[t].append(nums[i][j])
+                    if count == c-1:
+                        t += 1
+                        count = -1
+        return matrix
+    
+    def matrixReshape0(self, nums, r, c):
+        """
+        :type nums: List[List[int]]
+        :type r: int
+        :type c: int
+        :rtype: List[List[int]]
+        """
+        if len(nums) * len(nums[0]) == r * c:
+            ret = []
+            tmp_row = []
+            jj = 0
+            for row in nums:
+                for nm in row:
+                    tmp_row.append(nm)
+                    jj += 1
+                    if jj == c:
+                        jj = 0
+                        ret.append(tmp_row)
+                        tmp_row = []
+            return ret
+        else:
+            return nums
