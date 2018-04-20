@@ -925,7 +925,7 @@ class Solution(object):
         for j in range(count,len(nums)):
             nums[j] = 0
             
-    def moveZeroes(self, nums):
+    def moveZeroes0(self, nums):
         """
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
