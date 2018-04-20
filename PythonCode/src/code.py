@@ -4,6 +4,8 @@ import math
 import copy
 from builtins import int
 from pstats import count_calls
+import collections
+
 class Solution(object):
     '''
     classdocs
@@ -727,4 +729,110 @@ class Solution(object):
         return sum(nums[::2])
     
     
+    def findPairs(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k < 0:
+            return 0
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] in d:
+                d[nums[i]] += 1
+            else:
+                d[nums[i]] = 1
+        b = set(nums)
+        c = [i for i in b]
+        count = 0
+        if k == 0:
+            for i in d:
+                if d[i] > 1:
+                    count += 1
+            return count
+        for j in range(len(c)):
+            if c[j] + k in d:
+                count += 1
+        return count
     
+    def findPairs0(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        k maybe negative
+        """
+        # import collections
+        # unique_nums = set(nums)
+        # count = 0
+        # new_nums = collections.Counter(nums)
+        # if k == 0:
+        #     for i in unique_nums:
+        #         if new_nums[i] > 1:
+        #             count +=1
+        #     return count
+        # elif k < 0:
+        #     return 0
+        # elif k > 0:
+        #     for i in unique_nums:
+        #         if i+k in unique_nums:
+        #             count += 1
+        #     return count
+        
+# 用counter来做
+        # import collections
+        # count = 0
+        # list_nums = set(nums)
+        # if k == 0:
+        #     nums = collections.Counter(nums)
+        #     for each in nums:
+        #         if nums[each] > 1:
+        #             count += 1
+        #     return count
+        # elif k < 0:
+        #     return 0
+        # elif k > 0:
+        #     for i in list_nums:
+        #         if i + k in list_nums:
+        #             count += 1
+        #     return count
+        
+# 用dict来做
+
+        count = 0
+        if k < 0 :
+            return count
+        if k == 0:
+            new_nums = collections.defaultdict(int)
+            for i in nums:
+                new_nums[i] +=1
+            for value in new_nums:
+                if new_nums[value] > 1:
+                    count += 1
+            return count
+        if k > 0 :
+            nums = set(nums)
+            for i in nums:
+                if i+k in nums:
+                    count += 1
+            return count
+
+#         if k < 0:
+#             return 0
+#         if k == 0:
+#             dict = collections.defaultdict(int)
+#             for i in nums:
+#                 dict[i] += 1
+#             ans = 0
+#             for value in dict.values():
+#                 if value > 1:
+#                     ans += 1
+#             return ans
+#         nums = set(nums)
+#         ans = 0
+#         for item in nums:
+#             if item+k in nums:
+#                 ans += 1
+#         return ans
+        
