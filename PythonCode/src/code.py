@@ -911,5 +911,30 @@ class Solution(object):
         else:
             return nums[-3]
 
+    
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        count = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[count] = nums[i]
+                count += 1
+        for j in range(count,len(nums)):
+            nums[j] = 0
             
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        nonzeroes = [x for x in nums if x != 0]
+        if nonzeroes and len(nonzeroes) < len(nums):
+            nums[:len(nonzeroes)] = nonzeroes
+            nums[len(nonzeroes):] = [0] * (len(nums) - len(nonzeroes))
+            
+    
+           
         
