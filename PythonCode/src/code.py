@@ -877,3 +877,39 @@ class Solution(object):
             countMax = count
         
         return countMax
+    
+    
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(set(nums)) < 3:
+            return max(nums)
+        a = [i for i in (set(nums))]
+        t,s,m = tuple(sorted([a[0], a[1], a[2]]))
+        for i in range(len(nums)):
+            if nums[i] > m:
+                t = s
+                s = m
+                m = nums[i]
+            elif m > nums[i] > s:
+                t = s
+                s = nums[i]
+            elif s > nums[i] > t:
+                t = nums[i]
+        return t
+    
+    def thirdMax0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums = sorted(list(set(nums)))
+        if len(nums)<3:
+            return max(nums)
+        else:
+            return nums[-3]
+
+            
+        
