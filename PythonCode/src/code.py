@@ -950,5 +950,38 @@ class Solution(object):
                 r.append(j+1)
         return r
             
-           
-        
+    
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l = len(nums)
+        nums.append(l)
+        for i in range(len(nums)):
+            index = abs(nums[i])
+            if index == l+1:
+                index = 0
+            if nums[index] == 0:
+                nums[index] = -l-1
+                #print(nums)
+            else:
+                nums[index] = -abs(nums[index])
+                #print(nums)
+        for j in range(len(nums)):
+            if nums[j] >= 0:
+                return j
+        return l
+    
+    def missingNumber0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # nums.sort()
+        # if len(nums)==1 and nums[0]==0:
+        #     return 1
+        return int((1+len(nums))*len(nums)/2-sum(nums))
+    
+    
+    

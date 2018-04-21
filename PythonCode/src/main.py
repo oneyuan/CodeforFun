@@ -5,7 +5,7 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [1, 2, 3, 4, 5]
+nums = [3,0,1]
 k = 1
 nums1 = [4,2,1]
 nums2 = [2,3,3,2,4]
@@ -23,4 +23,5 @@ n = 1
 #print(w.imageSmoother(M))
 #print(w.findMaxAverage(nums, k))
 #print(w.canPlaceFlowers(flowerbed, n))
-print(w.findPairs(nums, k))
+#print(w.findPairs(nums, k))
+print (w.missingNumber(nums))
