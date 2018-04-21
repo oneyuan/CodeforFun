@@ -936,5 +936,19 @@ class Solution(object):
             nums[len(nonzeroes):] = [0] * (len(nums) - len(nonzeroes))
             
     
+    def findDisappearedNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        r = []
+        for i in range(len(nums)):
+            index = abs(nums[i])-1
+            nums[index] = -abs(nums[index])
+        for j in range(len(nums)):
+            if nums[j] > 0:
+                r.append(j+1)
+        return r
+            
            
         
