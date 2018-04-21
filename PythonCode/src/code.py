@@ -984,4 +984,26 @@ class Solution(object):
         return int((1+len(nums))*len(nums)/2-sum(nums))
     
     
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] in d:
+                d[nums[i]] += 1
+                return True
+            else:
+                d[nums[i]] = 1
+        return False
     
+    def containsDuplicate0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        num_set = set(nums)
+        if len(nums) == len(num_set):
+            return False
+        return True
