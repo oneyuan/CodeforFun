@@ -1081,4 +1081,39 @@ class Solution(object):
         k = k % n
         nums[:k], nums[k:] = nums[n-k:], nums[:n-k]    
             
+     
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dic = {}
+        for i in nums:
+            if i in dic:
+                dic[i] += 1
+            else:
+                dic[i] = 1
+        for item in dic:
+            if dic[item] > len(nums)/2:
+                return item
+            
+    def majorityElement0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n=len(nums)
+        if n==1 :
+            return nums[0]
+        if n%2 :
+            find = set(nums[0:(n//2)+1]) & set(nums[n//2:])
+        else:
+            find = set(nums[0:n//2]) & set(nums[n//2:])
         
+        for i in find:
+            if nums.count(i)>n//2:
+                return i
+            
+    
+    
+               
