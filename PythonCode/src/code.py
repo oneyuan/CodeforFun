@@ -1115,5 +1115,98 @@ class Solution(object):
                 return i
             
     
-    
-               
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        s = 0
+        e = 0
+        n = len(numbers)
+        for i in range(n):
+            if numbers[i] == target/2 and numbers[i+1] == target/2:
+                s = i
+                e = i+1
+                break
+            elif numbers[i] <= target/2 and numbers[i+1] > target/2:
+                s = i
+                e = i+1
+        if numbers[s] + numbers[e] == target:
+            return [s+1,e+1]
+        else:
+            for i in range(s+1):
+                for j in range(e, n):
+                    if numbers[i] + numbers[j] == target:
+                        return [i+1,j+1]
+                    
+    def twoSum1(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        ret = []
+        left = 0
+        right = len(numbers) - 1
+        while numbers[left] + numbers[right] != target and left < right:
+            Sum = numbers[left] + numbers[right]
+            if Sum > target:
+                right = right - 1
+            else:
+                left = left + 1
+        if left < right:
+            ret.append(left + 1)
+            ret.append(right + 1)
+            return ret
+        else:
+            return []
+        
+    def twoSum0(self, numbers, target):
+      
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        def move_rightest_left(self, start, end, target, numbers):
+            left = start
+            right = end
+            while left <= right:
+                mid = int((left + right)/2)
+                if numbers[mid] > target:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+
+            return right
+        
+        def move_leftest_right(self, start, end, target, numbers):
+            left = start
+            right = end
+            while left <= right:
+                mid = int((left + right) / 2)
+                if numbers[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+
+            return left
+        
+        ret = []
+        left = 0
+        right = len(numbers) - 1
+        while left < right:
+            Sum = numbers[left] + numbers[right]
+            if Sum == target:
+                ret.append(left + 1)
+                ret.append(right + 1)
+                return ret
+            if Sum > target:
+                right = self.move_rightest_left(left, right, target - numbers[left], numbers)
+            else:
+                left = self.move_leftest_right(left, right, target - numbers[right], numbers)
+
+        return ret
+
+

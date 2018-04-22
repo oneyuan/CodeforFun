@@ -12,6 +12,8 @@ nums2 = [2,3,3,2,4]
 M = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]]
 flowerbed = [0,1,0]
 n = 1
+numbers = [1,2,3,4,4,9,56,90]
+target = 8
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -26,4 +28,5 @@ n = 1
 #print(w.findPairs(nums, k))
 #print (w.missingNumber(nums))
 #print(w.containsNearbyDuplicate(nums, k))
-print(w.rotate(nums, k))
+#print(w.rotate(nums, k))
+print(w.twoSum(numbers, target))
