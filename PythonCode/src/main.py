@@ -5,8 +5,8 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [1,0,1,1]
-k = 1
+nums = [1,2,3]
+k = 4
 nums1 = [4,2,1]
 nums2 = [2,3,3,2,4]
 M = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]]
@@ -25,4 +25,5 @@ n = 1
 #print(w.canPlaceFlowers(flowerbed, n))
 #print(w.findPairs(nums, k))
 #print (w.missingNumber(nums))
-print(w.containsNearbyDuplicate(nums, k))
+#print(w.containsNearbyDuplicate(nums, k))
+print(w.rotate(nums, k))

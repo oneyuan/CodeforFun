@@ -1043,4 +1043,42 @@ class Solution(object):
         return False
     
     
-    
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        def reverse(n,k,nums):
+            l = []
+            b = 0
+            for i in range(n-k):
+                l.append(nums[i])
+            for j in range(n-k,n):
+                temp = nums[j]
+                nums[b] = temp
+                b += 1
+            for j in range(len(l)):
+                temp = l[j]
+                nums[b] = temp
+                b += 1
+                
+        n = len(nums)
+        if n < k:
+            k = k-n
+            reverse(n,k,nums)
+        else:
+            reverse(n,k,nums)
+        return nums
+            
+    def rotate0(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k = k % n
+        nums[:k], nums[k:] = nums[n-k:], nums[:n-k]    
+            
+        
