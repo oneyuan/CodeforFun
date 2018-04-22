@@ -1007,3 +1007,40 @@ class Solution(object):
         if len(nums) == len(num_set):
             return False
         return True
+    
+    
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        state of art
+        """
+        if len(nums) == 0:
+            return False
+        elif len(nums) == len(set(nums)):
+            return False
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] in d:
+                d[nums[i]].append(i)
+            else:
+                d[nums[i]] = []
+                d[nums[i]].append(i)
+        for j in d:
+            if len(d[j]) > 1: 
+                for m in range(len(d[j])-1):
+                    if d[j][m+1] - d[j][m] <= k:
+                        return True
+        return False
+    
+    def containsNearbyDuplicate1(self, nums, k):
+        dic = {}
+        for i, v in enumerate(nums):
+            if v in dic and i - dic[v] <= k:
+                return True
+            dic[v] = i
+        return False
+    
+    
+    
