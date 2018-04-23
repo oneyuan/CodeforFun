@@ -5,6 +5,7 @@ import copy
 from builtins import int
 from pstats import count_calls
 import collections
+import sys
 
 class Solution(object):
     '''
@@ -1210,3 +1211,69 @@ class Solution(object):
         return ret
 
 
+    def maxProfitⅠ(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices) == 0:
+            return 0
+        min_price = max(prices)
+        profit = 0
+        for i in range(len(prices)):
+            if prices[i] < min_price:
+                min_price = prices[i]
+            elif prices[i] - min_price > profit:     
+                profit = prices[i] - min_price
+        return profit
+    
+    def maxProfitⅠ0(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if not prices:
+            return 0
+        
+        max_prof = 0
+        min_p = sys.maxsize
+        
+        for i in range(len(prices)):
+            if prices[i] < min_p:
+                min_p = prices[i]
+            elif prices[i] - min_p > max_prof:
+                max_prof = prices[i] - min_p
+            
+        return max_prof
+    
+    
+    def maxProfitⅡ(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices) == 0:
+            return 0
+        profit = 0
+        for i in range(len(prices)-1):
+            p = prices[i+1] - prices[i]
+            if p >= 0:
+                profit += p
+        return profit
+    
+    def maxProfitⅡ0(self, prices):
+        profits = 0 
+        ln = len(prices)
+        if not ln:
+            return 0
+        elif ln == 2:
+            return (prices[1]-prices[0]) if prices[1] > prices[0] else 0
+        lastPrice = prices[0]
+        for price in prices:
+            if lastPrice < price:
+                profits+= (price-lastPrice)
+            lastPrice = price
+        return profits
+    
+    
+    
