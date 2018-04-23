@@ -1276,4 +1276,37 @@ class Solution(object):
         return profits
     
     
+    def generateOne(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        res = [[1],[1,1]]
+        if numRows == 0:
+            return []
+        elif numRows == 1:
+            return [[1]]
+        elif numRows == 2:
+            return[ [1],
+                   [1,1]
+                   ]
+        for i in range(2,numRows):
+            res.append([1])
+            for j in range(1,i+1):
+                if j < i:
+                    res[i].append(res[i-1][j-1] + res[i-1][j])
+                else:
+                    res[i].append(1)
+        return res
+    
+    def generateOne0(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        res = [[1]]
+        for i in range(1,numRows):
+            res.append(list(map(lambda x, y : x + y, res[-1]+[0], [0]+res[-1])))
+        return res[:numRows]
+    
     
