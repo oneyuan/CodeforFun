@@ -1347,4 +1347,54 @@ class Solution(object):
         return digits 
     
     
-       
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: void Do not return anything, modify nums1 in-place instead.
+        Both state of art , but the 0 one is more concise
+        """
+        i = 0
+        j = 0
+        k = 0
+        res = nums1[:]
+        if m == 0:
+            for k in range(n):
+                nums1[k] = nums2[k]
+        while i < m and j < n:
+            if res[i] < nums2[j]:
+                nums1[k] = res[i]
+                k += 1
+                if i == m-1:
+                    for a in range(j,n):
+                        nums1[k] = nums2[a]
+                        k+=1
+                    break
+                else:
+                    i += 1
+            else:
+                nums1[k] = nums2[j]
+                k += 1
+                if j == n-1:
+                    for a in range(i,m):
+                        nums1[k] = res[a]
+                        k+=1
+                    break
+                else:
+                    j += 1
+                    
+    def merge0(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: void Do not return anything, modify nums1 in-place instead.
+        """
+        
+        
+        nums1[m:] = nums2[:n]
+        nums1.sort()
+        
