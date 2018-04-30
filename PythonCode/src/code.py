@@ -1397,4 +1397,38 @@ class Solution(object):
         
         nums1[m:] = nums2[:n]
         nums1.sort()
+    
+    
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 0:
+            return 0
+        a = []
+        a.append(nums[0])
+        for i in range(len(nums)):
+            if nums[i] != a[-1]:
+                a.append(nums[i])
+        for j in range(len(a)):
+            nums[j] = a[j]
+        return len(a)
+    
+    def removeDuplicates0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums[:] = sorted(list(set(nums)))
+        return len(nums)
         
+        """
+        index = 0
+        while index < len(nums) - 1:
+            if nums[index] == nums[index+1]:
+                del nums[index]
+            else:
+                index += 1
+        return len(nums)
+        """    
