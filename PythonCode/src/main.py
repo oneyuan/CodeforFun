@@ -5,7 +5,8 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [-2,1,-3,4,-1,2,1,-5,4]
+nums = [4,4,0,1,0,2]
+val = 0
 k = 4
 nums1 = [4,2,1]
 nums2 = [2,3,3,2,4]
@@ -20,7 +21,7 @@ target = 8
 #print(w.minCostClimbingStairs(cost))
 #print(w.pivotIndex(nums))
 #print(w.maxAreaOfIsland([[0,1,1,1,0,0,0,0]]))
-print(w.maxSubArray(nums))
+#print(w.maxSubArray(nums))
 #print(w.findLengthOfLCIS(nums))
 #print(w.checkPossibility([1,2,3]))
 #print(w.imageSmoother(M))
@@ -31,3 +32,4 @@ print(w.maxSubArray(nums))
 #print(w.containsNearbyDuplicate(nums, k))
 #print(w.rotate(nums, k))
 #print(w.twoSum(numbers, target))
+print(w.removeElement(nums, val))

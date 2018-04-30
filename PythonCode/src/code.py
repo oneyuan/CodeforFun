@@ -1431,4 +1431,50 @@ class Solution(object):
             else:
                 index += 1
         return len(nums)
-        """    
+        """
+        
+    
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        count = len(nums)
+        for i in range(len(nums)):
+            if nums[i] == val:
+                count -= 1
+                j = i + 1
+                while j < len(nums):
+                    if nums[j] != val and nums[j] != -val-1:
+                        nums[i] = nums[j]
+                        nums[j] = -val-1
+                        break
+                    j += 1
+            elif nums[i] == -val-1:
+                j = i + 1
+                while j < len(nums):
+                    if nums[j] != val and nums[j] != -val-1:
+                        nums[i] = nums[j]
+                        nums[j] = -val-1
+                        break
+                    j += 1
+        nums[:] = nums[:count]
+        return count
+    
+    def removeElement0(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        index=0
+        
+        for i in range(0,len(nums)):
+            if nums[i]!=val:
+                nums[index]=nums[i]
+                index=index+1
+        return index
+    
+    
+        
