@@ -1539,4 +1539,34 @@ class Solution(object):
             else:
                 tmp[nums[i]] = i;
         
-        
+    
+    def getRow1(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        row = [1]
+        i = 0
+        while i < rowIndex:
+            row = [x+y for x,y in zip([0]+row, row+[0])]
+            i += 1
+        return row
+
+    def getRow0(self, k):
+        """
+        :type k: int
+        :rtype: List[int]
+        """
+        res = [1]
+        cur = k
+        for i in range(k//2):
+            res += res[-1] * cur // (i+1),
+            cur -= 1
+        if k % 2 == 0:
+            res = res + res[:-1][::-1]
+        else:
+            res = res + res[::-1]
+        return res
+    
+    
+    
