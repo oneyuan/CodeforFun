@@ -1623,5 +1623,33 @@ class Solution(object):
         
         return max_sum
     
+    def maxArrayDC(self, nums):
+        
+        def crossArray(left, right):
+            leftSum = 0
+            rightSum = 0
+            l = min(left)
+            r = min(right)
+            for i in range(len(left)-1, -1, -1):
+                leftSum += left[i]
+                l = max(leftSum, l)
+            for i in range(0, len(right)):
+                rightSum += right[i]
+                r = max(rightSum, r)
+            return l+r
+        
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+        mid = n // 2
+        left = nums[:mid]
+        right = nums[mid:]
+        l_max = self.maxArrayDC(left)
+        r_max = self.maxArrayDC(right)
+        return max(l_max, r_max, crossArray(left, right))
     
     
+    
+    
+        
+                
