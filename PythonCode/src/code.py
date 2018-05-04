@@ -1649,6 +1649,38 @@ class Solution(object):
         return max(l_max, r_max, crossArray(left, right))
     
     
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        k = [0,1,2]
+        if n == 1:
+            return 1
+        elif n == 2:
+            return 2
+        elif n == 0:
+            return 0
+        for i in range(3,n+1):
+            k.append(k[i-1]+k[i-2])
+        return k[n]
+    
+    def climbStairs0(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dictionary = {}
+        number = 0
+        if n == 0 or n == 1:
+            return 1
+        if n in self.dictionary:
+            return dictionary[n]
+        else:
+            number += self.climbStairs(n - 1) + self.climbStairs(n - 2)
+            dictionary[n] = number
+        return number
+    
     
     
         
