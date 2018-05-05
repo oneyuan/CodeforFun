@@ -1682,6 +1682,62 @@ class Solution(object):
         return number
     
     
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = [0]
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+        elif n == 2:
+            k = max(nums[0], nums[1])
+            res.append(k)
+            return k
+        elif n == 0:
+            return 0
+        t = 3
+        res.append(nums[0])
+        k = max(nums[0], nums[1])
+        res.append(k)
+        while t <= n:
+            res.append(max(res[t-1], res[t-2] + nums[t-1]))
+            t += 1
+        return res[n]
     
+    def rob1(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        The same solution as mine, but ...
+        """
         
-                
+        if len(nums) == 0: return 0
+        if len(nums) == 1: return nums[0]
+        if len(nums) == 2: return max(nums)
+        
+        dp = [0 for _ in range(len(nums))]
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        for i in range(2,len(nums)):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+            
+        return dp[-1]
+        
+    def rob0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 0:
+            return 0
+        money = [0,nums[0]]
+        for i in range(1,len(nums)):
+            temp = money[0]
+            money[0] = max(money[0],money[1])
+            money[1] = temp + nums[i]
+        return max(money[0],money[1])  
+    
+    
+              
