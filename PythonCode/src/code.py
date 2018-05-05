@@ -1740,4 +1740,43 @@ class Solution(object):
         return max(money[0],money[1])  
     
     
-              
+    
+class NumArray:
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.res = [0]
+        for i in range(len(nums)):
+            self.res.append(nums[i] + self.res[i])
+
+    def sumRange(self, i, j):
+        """
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        return self.res[j+1] - self.res[i]
+    """
+    def __init__(self, nums):
+        
+        :type nums: List[int]
+        
+        self.dp = nums
+        for i in range(1, len(nums)):
+            self.dp[i] = self.dp[i-1] + nums[i]
+        
+
+    def sumRange(self, i, j):
+        
+        :type i: int
+        :type j: int
+        :rtype: int
+        
+        return self.dp[j] - self.dp[i - 1] if i != 0 else self.dp[j]
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)            
+    """
+    

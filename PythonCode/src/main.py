@@ -5,7 +5,7 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [2,7,9,3,1]
+nums = [-2,0,3,-5,2,-1]
 val = 0
 k = 4
 nums1 = [4,2,1]
@@ -35,4 +35,6 @@ target = 9
 #print(w.removeElement(nums, val))
 #print(w.twoSum(nums, target))
 #print(w.maxArrayDC(nums))
-print(w.rob(nums))
+#print(w.rob(nums))
+k = code.NumArray(nums)
+print(k.sumRange(0, 5))
