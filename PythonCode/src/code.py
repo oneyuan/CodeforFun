@@ -1739,6 +1739,48 @@ class Solution(object):
             money[1] = temp + nums[i]
         return max(money[0],money[1])  
     
+    def isBadVersion(self, version):
+        if version >= 7:
+            return True
+        else:
+            return False
+    
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def badVersion(begin, end):
+            mid = (begin + end) // 2
+            gap = end - begin
+            #print(self.isBadVersion(begin),begin, end)
+            if gap == 1:
+                return end
+            if self.isBadVersion(mid):
+                return badVersion(begin, mid)
+            else:
+                return badVersion(mid, end)
+        return badVersion(0, n)
+    
+    def firstBadVersion0(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        start = 1
+        end = n
+        checking = (end + start)/2
+        while (end != start):
+            if self.isBadVersion(checking):
+                end = checking
+            else:
+                start =  checking + 1
+            checking = (end+start)/2
+        
+        return start
+        
+    
+    
     
     
 class NumArray:

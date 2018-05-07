@@ -36,5 +36,6 @@ target = 9
 #print(w.twoSum(nums, target))
 #print(w.maxArrayDC(nums))
 #print(w.rob(nums))
-k = code.NumArray(nums)
-print(k.sumRange(0, 5))
+#k = code.NumArray(nums)
+#`print(k.sumRange(0, 5))
+print(w.firstBadVersion(10))
