@@ -7,6 +7,48 @@ from builtins import int
 import collections
 import sys
 
+class NumArray:
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.res = [0]
+        for i in range(len(nums)):
+            self.res.append(nums[i] + self.res[i])
+
+    def sumRange(self, i, j):
+        """
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        return self.res[j+1] - self.res[i]
+    """
+    def __init__(self, nums):
+        
+        :type nums: List[int]
+        
+        self.dp = nums
+        for i in range(1, len(nums)):
+            self.dp[i] = self.dp[i-1] + nums[i]
+        
+
+    def sumRange(self, i, j):
+        
+        :type i: int
+        :type j: int
+        :rtype: int
+        
+        return self.dp[j] - self.dp[i - 1] if i != 0 else self.dp[j]
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)            
+    """
+    
+
+
+
 class Solution(object):
     '''
     classdocs
@@ -1780,45 +1822,45 @@ class Solution(object):
         return start
         
     
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        sdic = {}
+        tdic = {}
+        if len(s) != len(t):
+            return False
+        for i in range(len(s)):
+            if s[i] in sdic:
+                sdic[s[i]] += str(i)
+            else:
+                sdic[s[i]] = str(i)
+            if t[i] in tdic:
+                tdic[t[i]] += str(i)
+            else:
+                tdic[t[i]] = str(i)
+        sres = list(sdic.values())
+        tres = list(tdic.values())
+        sres.sort()
+        tres.sort()
+        if sres == tres:
+            return True
+        else:
+            return False
+        
+    def isIsomorphic0(self, s1, s2):
+        return len(set(zip(s1, s2))) == len(set(s1)) == len(set(s2))
     
     
     
-class NumArray:
-
-    def __init__(self, nums):
-        """
-        :type nums: List[int]
-        """
-        self.res = [0]
-        for i in range(len(nums)):
-            self.res.append(nums[i] + self.res[i])
-
-    def sumRange(self, i, j):
-        """
-        :type i: int
-        :type j: int
-        :rtype: int
-        """
-        return self.res[j+1] - self.res[i]
-    """
-    def __init__(self, nums):
-        
-        :type nums: List[int]
-        
-        self.dp = nums
-        for i in range(1, len(nums)):
-            self.dp[i] = self.dp[i-1] + nums[i]
-        
-
-    def sumRange(self, i, j):
-        
-        :type i: int
-        :type j: int
-        :rtype: int
-        
-        return self.dp[j] - self.dp[i - 1] if i != 0 else self.dp[j]
-# Your NumArray object will be instantiated and called as such:
-# obj = NumArray(nums)
-# param_1 = obj.sumRange(i,j)            
-    """
+    
+    
+    
+    
+    
+    
+    
+    
     

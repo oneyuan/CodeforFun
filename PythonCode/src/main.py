@@ -15,6 +15,8 @@ flowerbed = [0,1,0]
 n = 1
 numbers = [1,2,3,4,4,9,56,90]
 target = 9
+s = "egg"
+t = "add"
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -38,4 +40,5 @@ target = 9
 #print(w.rob(nums))
 #k = code.NumArray(nums)
 #`print(k.sumRange(0, 5))
-print(w.firstBadVersion(10))
+#print(w.firstBadVersion(10))
+print(w.isIsomorphic(s, t))
