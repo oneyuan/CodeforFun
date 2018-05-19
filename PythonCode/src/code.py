@@ -1854,6 +1854,60 @@ class Solution(object):
         return len(set(zip(s1, s2))) == len(set(s1)) == len(set(s2))
     
     
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        r = len(matrix)
+        if r == 0:
+            return False
+        c = len(matrix[0])
+        if c == 0:
+            return False
+        
+        def binarySearch(l, start, end, target):
+            mid = (start + end) // 2
+            if mid == start:
+                return False
+            elif l[mid] < target:
+                return binarySearch(l, mid, end, target)
+            elif l[mid] > target:
+                return binarySearch(l, start, mid, target)
+            else:
+                return True
+        
+        for i in range(r):
+            if matrix[i][0] < target and matrix[i][-1] > target:
+                if binarySearch(matrix[i], 0, c-1, target):
+                    return True
+            elif matrix[i][0] == target or matrix[i][-1] == target:
+                return True
+     
+        return False
+    
+    def searchMatrix0(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        m = len(matrix)
+        if m == 0:
+            return False
+        n = len(matrix[0])
+        if n == 0:
+            return False
+        row, col = 0, n-1
+        while row < m and col >= 0:
+            if matrix[row][col] == target:
+                return True
+            elif matrix[row][col] > target:
+                col -= 1
+            else:
+                row += 1
+        return False
     
     
     
