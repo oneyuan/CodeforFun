@@ -1910,6 +1910,28 @@ class Solution(object):
         return False
     
     
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if len(nums) == k:
+            return min(nums)
+        else:
+            nums.sort()
+            return nums[-k]
+        
+    def findKthLargest0(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        nums = sorted(nums, reverse=True)
+        return nums[k - 1]
+    
+    
     
     
     
