@@ -17,6 +17,7 @@ numbers = [1,2,3,4,4,9,56,90]
 target = 9
 s = "egg"
 t = "add"
+t = "2*3-4*5"
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -41,4 +42,5 @@ t = "add"
 #k = code.NumArray(nums)
 #`print(k.sumRange(0, 5))
 #print(w.firstBadVersion(10))
-print(w.isIsomorphic(s, t))
+#print(w.isIsomorphic(s, t))
+print(w.diffWaysToCompute(t))

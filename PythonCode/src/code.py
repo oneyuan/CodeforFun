@@ -6,6 +6,8 @@ from builtins import int
 #from pstats import count_calls
 import collections
 import sys
+import re
+import operator
 
 class NumArray:
 
@@ -1932,11 +1934,88 @@ class Solution(object):
         return nums[k - 1]
     
     
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        def helper(a, b , c):
+            if c == "+":
+                return a + b
+            elif c == "-":
+                return a - b
+            elif c == "*":
+                return a * b
+            
+        res = []    
+        if input.isdigit():
+            return [int(input)]
+        for i in range(len(input)):
+            if input[i] in "+-*":
+                a = self.diffWaysToCompute(input[:i])
+                b = self.diffWaysToCompute(input[i+1:])
+                for j in a:
+                    for k in b:
+                        res.append(helper(j, k, input[i]))
+        return res
+            
+    def diffWaysToCompute0(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        This problem is more like a DP problem rather than a divide and conquer one
+        """
+        arr = [int(n) for n in re.split(r'[-+*]', input)]
+        ops = re.findall(r'[-+*]', input)
+        memo = {}
+        def helper(start, end):
+            if start == end:
+                return [arr[start]]
+            if start > end:
+                return []
+            if (start, end) in memo:
+                return memo[(start, end)]
+            result = []
+            for i in range(start, end):
+                solutions_right = helper(i+1, end)
+                solutions_left = helper(start, i)
+                for l in solutions_left:
+                    for r in solutions_right:
+                        if ops[i] == '+':
+                            result.append(l+r)
+                        elif ops[i] == '-':
+                            result.append(l-r)
+                        else:
+                            result.append(l*r)
+            memo[(start, end)] = result
+            return result
+        
+        return helper(0, len(arr)-1)
     
+    def diffWaysToCompute1(self, input): #48ms
+        tokens = re.split('(\D)', input)
+        nums = map(int, tokens[::2])
+        ops = map({'+': operator.add, '-': operator.sub, '*': operator.mul}.get, tokens[1::2])
+        def build(lo, hi):
+            if lo == hi:
+                return [nums[lo]]
+            return [ops[i](a, b)
+                    for i in range(lo, hi)
+                    for a in build(lo, i)
+                    for b in build(i + 1, hi)]
+        return build(0, len(nums) - 1)
     
-    
-    
-    
+    def diffWaysToCompute2(self, input): #168ms
+        return [eval('a'+c+'b')
+                for i, c in enumerate(input) if c in '+-*'
+                for a in self.diffWaysToCompute(input[:i])
+                for b in self.diffWaysToCompute(input[i+1:])] or [int(input)]
+
+    def diffWaysToCompute3(self, input): #64ms
+        return [a+b if c == '+' else a-b if c == '-' else a*b
+            for i, c in enumerate(input) if c in '+-*'
+            for a in self.diffWaysToCompute(input[:i])
+            for b in self.diffWaysToCompute(input[i+1:])] or [int(input)]
     
     
     
