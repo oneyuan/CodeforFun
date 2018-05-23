@@ -9,6 +9,12 @@ import sys
 import re
 import operator
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
 class NumArray:
 
     def __init__(self, nums):
@@ -2064,3 +2070,40 @@ class Solution(object):
         return (nums[len(nums)//2-1] + nums[len(nums)//2]) / 2
 
 
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        n = len(lists)
+        res = []
+        if n == 0:
+            return res
+        elif lists[0] == None and n == 1:
+            return res
+        for i in range(n):
+            if lists[i] != None:
+                res.append(lists[i].val)
+                t = lists[i].next
+                while t != None:
+                    res.append(t.val)
+                    t = t.next
+        res.sort()
+        return res
+    
+    def mergeKLists0(self, lists):
+        from operator import attrgetter
+        
+        sorted_list = []
+        for lst in lists:
+            while lst is not None:
+                sorted_list.append(lst)
+                lst = lst.next
+        sorted_list = sorted(sorted_list, key = attrgetter('val'))
+        dummy  = curr = ListNode(0)
+        for node in sorted_list:
+            curr.next = curr = node
+        return dummy.next
+    
+    
+    
