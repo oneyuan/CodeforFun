@@ -2135,4 +2135,64 @@ class Solution(object):
         return jewelCounter
     
     
+    def subdomainVisits(self, cpdomains):
+        """
+        :type cpdomains: List[str]
+        :rtype: List[str]
+        """
+        res = {}
+        t = []
+        for i in range(len(cpdomains)):
+            nums = int(cpdomains[i].split(' ')[0])
+            w = cpdomains[i].split(' ')[1].split('.')
+            if w[-1] in res:
+                res[w[-1]] += nums
+            else:
+                res[w[-1]] = nums
+            if w[-2] + '.' + w[-1] in res:
+                res[w[-2] + '.' + w[-1]] += nums
+            else:
+                res[w[-2] + '.' + w[-1]] = nums
+            if len(w) == 3:
+                res[cpdomains[i].split(' ')[1]] = nums
+        for i in res:
+            t.append(str(res[i]) + ' ' + i)
+        return t
+    
+    def subdomainVisits0(self, cpdomains):
+        """
+        :type cpdomains: List[str]
+        :rtype: List[str]
+        """
+        if not cpdomains:
+            return list()
+        
+        res = dict()
+        def add_to_dict(key, value):
+            if key in res:
+                res[key] += value
+            else:
+                res[key] = value
+        
+        for cp in cpdomains:
+            count, domain = cp.split(' ')
+            count = int(count)
+            add_to_dict(domain, count)
+            domain_split = domain.split('.')
+            if len(domain_split) == 2:
+                _, tl = domain_split
+                add_to_dict(tl, count)
+            else: 
+                _, tld, tl = domain_split          
+                add_to_dict(tl, count)
+                add_to_dict(tld +'.'+tl, count)
+        
+        foo = list()
+        
+        for k, v in res.items():
+            foo.append('{} {}'.format(v, k))
+            
+        return foo
+    
+    
     
