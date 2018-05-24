@@ -2244,4 +2244,54 @@ class Solution(object):
         return r
         
 
-
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        m = len(grid)
+        n = len(grid[0])
+        t = 0
+        res = [[0 for i in range(n+1)]]
+        for k in range(m):
+            tmp = [0]
+            for j in range(n):
+                tmp.append(grid[k][j])
+            tmp.append(0)
+            res.append(tmp)
+        res.append([0 for i in range(n+1)])
+        for i in range(m+1):
+            for j in range(n+1):
+                if res[i][j] == 1:
+                    count = 0
+                    if res[i-1][j] == 0:
+                        count += 1
+                    if res[i+1][j] == 0:
+                        count += 1
+                    if res[i][j-1] == 0:
+                        count += 1
+                    if res[i][j+1] == 0:
+                        count += 1
+                    t += count
+        return t
+    
+    def islandPerimeter0(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+       
+        """
+        ret = 0
+        rows, cols = len(grid), len(grid[0])
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j]:
+                    ret += 4
+                    if j and grid[i][j - 1]:
+                        ret -= 2
+                    if i and grid[i - 1][j]:
+                        ret -= 2
+        return ret
+    
+    
+    
