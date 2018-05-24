@@ -2074,6 +2074,7 @@ class Solution(object):
         """
         :type lists: List[ListNode]
         :rtype: ListNode
+        [[]] [] [[],[1,2]] [[1,2],[],[2,3]]
         """
         n = len(lists)
         res = []
@@ -2104,6 +2105,34 @@ class Solution(object):
         for node in sorted_list:
             curr.next = curr = node
         return dummy.next
+    
+    
+    def numJewelsInStones(self, J, S):
+        """
+        :type J: str
+        :type S: str
+        :rtype: int
+        """
+        d = {}
+        res = 0
+        for i in S:
+            if i in d:
+                d[i] += 1
+            else:
+                d[i] = 1
+        for j in J:
+            if j in d:
+                res += d[j]
+        return res
+    
+    def numJewelsInStones0(self, J, S):
+        jewelCounter = 0
+
+        for stone in S:
+            if stone in J:
+                jewelCounter = jewelCounter + 1
+
+        return jewelCounter
     
     
     
