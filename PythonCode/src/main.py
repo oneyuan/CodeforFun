@@ -18,6 +18,7 @@ target = 9
 s = "egg"
 t = "add"
 t = "2*3-4*5"
+words = ["Hello","Alaska","Dad","Peace"]
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -43,4 +44,5 @@ t = "2*3-4*5"
 #`print(k.sumRange(0, 5))
 #print(w.firstBadVersion(10))
 #print(w.isIsomorphic(s, t))
-print(w.diffWaysToCompute(t))
+#print(w.diffWaysToCompute(t))
+print(w.findWords(words))

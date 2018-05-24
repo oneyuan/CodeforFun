@@ -2,7 +2,7 @@
 import heapq
 import math
 import copy
-from builtins import int
+#from builtins import int, False
 #from pstats import count_calls
 import collections
 import sys
@@ -2195,4 +2195,53 @@ class Solution(object):
         return foo
     
     
+    def findWords(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        k = []
+        for i in words:
+            q = True
+            t = i.lower()
+            l = len(i)
+            if t[0] in "qwertyuiop":
+                res = 1
+            elif t[0] in "asdfghjkl":
+                res = 2
+            else:
+                res = 3
+            for j in range(1, l):
+                if res == 1:
+                    if t[j] not in "qwertyuiop":
+                        q = False
+                elif res == 2:
+                    if t[j] not in "asdfghjkl":
+                        q = False
+                else:
+                    if t[j] not in "zxcvbnm":
+                        q = False
+            if q:
+                k.append(i)
+        return k
     
+    def findWords0(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        row1='qwertyuiop'
+        row2='asdfghjkl'
+        row3='zxcvbnm'
+        r=[]
+        for i in words:
+            if set(i.lower()).issubset(set(row1)):
+                r.append(i)
+            elif set(i.lower()).issubset(set(row2)):
+                r.append(i)
+            elif set(i.lower()).issubset(set(row3)):
+                r.append(i)
+        return r
+        
+
+
