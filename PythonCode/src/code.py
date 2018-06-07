@@ -2430,3 +2430,28 @@ class Solution(object):
         return ans
     
     
+    def reconstructQueue(self, people):
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        people.sort(key = lambda a: [a[0], -a[1]],reverse=True)
+        res = []
+        for  j in range(len(people)):
+            res.insert(people[j][1], people[j])
+        return res
+        
+        
+    def reconstructQueue0(self, people):
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        people.sort(key = lambda x: (-x[0], x[1]))
+        queue = []
+        for p in people:
+            queue.insert(p[1], p)
+        return queue
+    
+    
+    
