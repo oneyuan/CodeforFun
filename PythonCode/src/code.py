@@ -2454,4 +2454,34 @@ class Solution(object):
         return queue
     
     
-    
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        def checkPoint(nums, j):
+            k = 1
+            while j - k >= 0:
+                if j == len(nums)-1:
+                    if nums[j-k] >= k:
+                        return False
+                else:
+                    if nums[j-k] > k:
+                        return False
+                k += 1
+            return True
+        
+        if len(nums) == 1:
+            return True
+        ex = []
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                ex.append(i)
+        zt = 0
+        for j in ex:
+            if checkPoint(nums, j):
+                zt = -1
+        if zt == -1:
+            return False
+        else:
+            return True

@@ -5,7 +5,7 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [-2,0,3,-5,2,-1]
+nums = [2,0,1,0,1]
 val = 0
 k = 4
 nums1 = [4,2,1]
@@ -49,4 +49,5 @@ S = "ababcbacadefegdehijhklij"
 #print(w.diffWaysToCompute(t))
 #print(w.findWords(words))
 #print(w.getSkyline(buildings))
-print(w.partitionLabels(S))
+#print(w.partitionLabels(S))
+print(w.canJump(nums))
