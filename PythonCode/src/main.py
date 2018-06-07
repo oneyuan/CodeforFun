@@ -19,6 +19,8 @@ s = "egg"
 t = "add"
 t = "2*3-4*5"
 words = ["Hello","Alaska","Dad","Peace"]
+buildings = [[0,2,3],[2,5,3]]
+S = "ababcbacadefegdehijhklij"
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -45,4 +47,6 @@ words = ["Hello","Alaska","Dad","Peace"]
 #print(w.firstBadVersion(10))
 #print(w.isIsomorphic(s, t))
 #print(w.diffWaysToCompute(t))
-print(w.findWords(words))
+#print(w.findWords(words))
+#print(w.getSkyline(buildings))
+print(w.partitionLabels(S))

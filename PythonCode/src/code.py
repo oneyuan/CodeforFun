@@ -2294,4 +2294,139 @@ class Solution(object):
         return ret
     
     
+    def getSkyline(self, buildings):
+        """
+        :type buildings: List[List[int]]
+        :rtype: List[List[int]]
+        not accepted due to time limit exceeded
+        """
+        if len(buildings) == 0 or len(buildings[0]) == 0:
+            return []
+        s = []
+        for i in range(len(buildings)):
+            s.append([buildings[i][0], "b", buildings[i][2]])
+            s.append([buildings[i][1], "e", buildings[i][2]])
+        s.sort()
+        h = []
+        res = []
+        for j in range(len(s)):
+            if s[j][1] == "b":
+                h.append(s[j][2])
+            else:
+                h.remove(s[j][2])
+            if len(h) != 0:
+                res.append([s[j][0], max(h)])
+            else:
+                res.append([s[j][0], 0])
+        tmp = 0
+        tt = []
+        for k in range(len(res)):
+            if tmp != res[k][1]:
+                tt.append(res[k])
+                tmp = res[k][1]
+        tp = tt[0][0]
+        l = 1
+        while l < len(tt):
+            if tt[l][0] == tp:
+                del tt[l-1]
+            else:
+                tp = tt[l][0]
+                l += 1
+        return tt
+
+
+
+    def findContentChildren(self, g, s):
+        """
+        :type g: List[int]
+        :type s: List[int]
+        :rtype: int
+        """
+        g.sort()
+        s.sort()
+        i = 0
+        j = 0
+        count = 0
+        while i < len(g) and j < len(s):
+            if g[i] <= s[j]:
+                count += 1
+                i += 1
+                j += 1
+            else:
+                j += 1
+        return count
+    
+    def findContentChildren0(self, g, s):
+        """
+        :type g: List[int]
+        :type s: List[int]
+        :rtype: int
+        """
+        res = 0
+        heapq.heapify(g)
+        s.sort()
+        for num in s:
+            if not g:
+                break
+            elif g[0] <= num:
+                res += 1
+                heapq.heappop(g)
+        return res
+    
+    
+    def partitionLabels(self, S):
+        """
+        :type S: str
+        :rtype: List[int]
+        """
+        def judgeIf(l, t):
+            for k in l:
+                if t[k] != 0:
+                    return False
+            return True
+        
+        t = {}
+        res = [0]
+        l = []
+        for i in range(len(S)):
+            if S[i] in t:
+                t[S[i]] += 1
+            else:
+                t[S[i]] = 1
+        j = 0
+        while j < len(S):
+            if S[j] not in l:
+                l.append(S[j])
+            t[S[j]] -= 1
+            if t[S[j]] != 0:
+                j += 1
+            else:
+                j += 1
+                if judgeIf(l, t):
+                    l = []
+                    res.append(j-sum(res))
+        return res[1:]
+    
+    def partitionLabels0(self, S):
+        """
+        :type S: str
+        :rtype: List[int]
+        """
+        lst = {}
+        n = len(S)
+        for i,c in enumerate(S):
+            lst[c] = i;
+        ans = []
+        max = 0
+        pre = -1
+        for i in range(n):
+            if lst[S[i]] > max :
+                max = lst[S[i]]
+            if max == i :
+                ans.append(max-pre)
+                pre = max
+                max = max+1
+        
+        return ans
+    
     
