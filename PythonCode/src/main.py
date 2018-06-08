@@ -19,7 +19,7 @@ s = "egg"
 t = "add"
 t = "2*3-4*5"
 words = ["Hello","Alaska","Dad","Peace"]
-buildings = [[0,2,3],[2,5,3]]
+buildings = [ [2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8] ]
 S = "ababcbacadefegdehijhklij"
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
@@ -50,4 +50,5 @@ S = "ababcbacadefegdehijhklij"
 #print(w.findWords(words))
 #print(w.getSkyline(buildings))
 #print(w.partitionLabels(S))
-print(w.canJump(nums))
+#print(w.canJump(nums))
+print(w.getSkyline01(buildings))

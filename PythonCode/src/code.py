@@ -2294,7 +2294,7 @@ class Solution(object):
         return ret
     
     
-    def getSkyline(self, buildings):
+    def getSkyline_1(self, buildings):
         """
         :type buildings: List[List[int]]
         :rtype: List[List[int]]
@@ -2334,7 +2334,32 @@ class Solution(object):
                 l += 1
         return tt
 
-
+    def getSkyline01(self, buildings):
+        """
+        :type buildings: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        t = sorted(list([x, -y, z] for x, y, z in buildings) + list([z, 0 ,None] for _, z, _ in buildings))
+        t.sort()
+        hp = [[0,float("inf")]]
+        res = [[] for _ in buildings]
+        res[0].append(0)
+        res[0].append(0)
+        i = 1
+        for x, y, z in t:
+            while x > hp[0][1]:
+                heapq.heappop(hp)
+            if y:
+                heapq.heappush(hp, [y, z])
+            if res[-1][1] + hp[0][0]:
+                res[i].append(x)
+                res[i].append(-hp[0][0])
+                i += 1
+        for j in range(len(res)):
+            if len(res[j]) == 0:
+                z = j
+        return res[1:z]
+            
 
     def findContentChildren(self, g, s):
         """
@@ -2458,6 +2483,7 @@ class Solution(object):
         """
         :type nums: List[int]
         :rtype: bool
+        pay attention to the last 0 if it exist then everything changes
         """
         def checkPoint(nums, j):
             k = 1
@@ -2485,3 +2511,78 @@ class Solution(object):
             return False
         else:
             return True
+        
+        
+    def canJump0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        n = len(nums)
+        
+        can = True
+        smallest_idx = n - 1
+        
+        for i in range(n - 2, -1, -1):
+            can = i + nums[i] >= smallest_idx
+            if can:
+                smallest_idx = i
+        return can
+    
+    
+    def canCompleteCircuit_1(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        Time Limit Exceeded
+        """
+        def checkSum(t, i):
+            j = 0
+            s = 0
+            while j< len(t):
+                if i+j < len(t):
+                    s += t[i+j]
+                    if s < 0 :
+                        return False
+                    j += 1
+                else:
+                    s += t[i+j-len(t)]
+                    if s < 0:
+                        return False
+                    j += 1
+            return True
+                    
+        t = []
+        for k in range(len(gas)):
+            tmp = gas[k] - cost[k]
+            t.append(tmp)
+        for i in range(len(t)):
+            if t[i] >= 0:
+                if checkSum(t, i):
+                    return i
+        return -1
+    
+    def canCompleteCircuit0(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        i = len(gas) - 1
+        j = 0
+        s = 0
+        s += (gas[i] - cost[i])
+        while i > j:
+            if s <= 0:
+                i -= 1
+                s += (gas[i] - cost[i])
+            else:
+                s += (gas[j] - cost[j])
+                j += 1
+        if s >= 0:
+            return i
+        else:
+            return -1
+            
+    
