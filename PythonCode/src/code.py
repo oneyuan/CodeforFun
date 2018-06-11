@@ -2586,3 +2586,47 @@ class Solution(object):
             return -1
             
     
+    def wiggleMaxLength_1(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 2:
+            return len(nums)
+        i = 1
+        prediff = nums[1] - nums[0]
+        if prediff == 0:
+            count = 1
+        else:
+            count = 2
+        for i in range(2, len(nums)):
+            diff = nums[i] - nums[i-1]
+            if prediff >= 0 and diff < 0:
+                count += 1
+                prediff = diff
+            elif prediff <= 0 and diff > 0:
+                count += 1
+                prediff = diff
+        return count
+    
+    def wiggleMaxLength(self, arr):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(arr)
+        if n < 2:
+            return n
+        wsl = [0]*n
+        wsl[0] = 1
+        for cur in range(1, n):
+            prev = cur - 1                
+            if arr[cur] > arr[prev] and wsl[prev] <= 1:
+                wsl[cur] = abs(wsl[prev]) + 1
+            elif arr[cur] < arr[prev] and wsl[prev] > 0:
+                wsl[cur] = (abs(wsl[prev]) + 1)*(-1)
+            else:
+                wsl[cur] = wsl[prev]
+        return abs(wsl[n-1])
+    
+    
