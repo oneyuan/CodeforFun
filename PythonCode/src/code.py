@@ -2662,3 +2662,39 @@ class Solution(object):
         return True
     
     
+    def removeKdigits(self, num, k):
+        """
+        :type num: str
+        :type k: int
+        :rtype: str
+        """
+        n = len(num)
+        l = list(num)
+        if n == k:
+            return "0"
+        tmp = min(l[:k+1])
+        res= [tmp]
+        j = l.index(tmp)
+        for i in range(2, n-k+1):
+            t = l[j+1:k+i]
+            tmp = min(t)
+            j = j + t.index(tmp) + 1
+            res.append(tmp)
+        return str(int(''.join(res)))
+    
+    def removeKdigits0(self, num, k):
+        """
+        :type num: str
+        :type k: int
+        :rtype: str
+        """
+        out=[]
+        for digit in num:
+            while k and out and out[-1] > digit:
+                out.pop()
+                k-=1
+            out.append(digit)
+        return ''.join(out[:-k or None]).lstrip('0') or "0"
+    
+    
+    

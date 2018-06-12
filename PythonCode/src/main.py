@@ -7,7 +7,7 @@ matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
 nums = [1,1,1,7,7,2,3,7,7]
 val = 0
-k = 4
+k = 1
 nums1 = [4,2,1]
 nums2 = [2,3,3,2,4]
 M = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]]
@@ -21,6 +21,7 @@ t = "2*3-4*5"
 words = ["Hello","Alaska","Dad","Peace"]
 buildings = [ [2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8] ]
 S = "ababcbacadefegdehijhklij"
+num = "10200"
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -52,4 +53,5 @@ S = "ababcbacadefegdehijhklij"
 #print(w.partitionLabels(S))
 #print(w.canJump(nums))
 #print(w.getSkyline01(buildings))
-print(w.wiggleMaxLength(nums))
+#print(w.wiggleMaxLength(nums))
+print(w.removeKdigits(num, k))
