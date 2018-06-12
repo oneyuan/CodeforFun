@@ -2630,3 +2630,35 @@ class Solution(object):
         return abs(wsl[n-1])
     
     
+    def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        j = 0
+        for i in range(len(s)):
+            j = t.find(s[i])
+            if j == -1:
+                return False
+            else:
+                t = t[j+1:]
+        return True
+    
+    def isSubsequence0(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s) > len(t):
+            return False
+        for i in s:
+            if i in t:
+                index = t.find(i)
+                t = t[index + 1:]
+            else:
+                return False
+        return True
+    
+    
