@@ -14,6 +14,11 @@ class ListNode:
         self.val = x
         self.next = None
 
+class Interval:
+    def __init__(self, s=0, e=0):
+        self.start = s
+        self.end = e
+
 
 class NumArray:
 
@@ -2695,6 +2700,46 @@ class Solution(object):
                 k-=1
             out.append(digit)
         return ''.join(out[:-k or None]).lstrip('0') or "0"
+    
+    
+    def eraseOverlapIntervals(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
+        if len(intervals) <= 1:
+            return 0
+        s = []
+        e = []
+        r = [[] for i in intervals]
+        for i in intervals:
+            s.append(i.start)
+            e.append(i.end)
+        for i in range(len(s)):
+            r[i].append(e[i])
+            r[i].append(s[i])
+        r.sort()
+        res = 1
+        last = r[0]
+        for j in range(1, len(r)):
+            if last[0] <= r[j][1]:
+                res += 1
+                last = r[j]
+        return len(intervals) - res
+    
+    def eraseOverlapIntervals0(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
+        intervals = sorted(intervals, key = lambda x: x.end)
+        current_end = float('-inf')
+        cnt = 0
+        for interval in intervals:
+            if interval.start >= current_end:
+                cnt += 1
+                current_end = interval.end
+        return len(intervals) - cnt
     
     
     
