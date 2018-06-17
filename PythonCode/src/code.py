@@ -2777,4 +2777,42 @@ class Solution(object):
         return res
     
     
+    def leastInterval_1(self, tasks, n):
+        """
+        :type tasks: List[str]
+        :type n: int
+        :rtype: int
+        """
+        dic = {}
+        for i in tasks:
+            if i in dic:
+                dic[i] += 1
+            else:
+                dic[i] = 1
+        l = list(dic.values())
+        l.sort(reverse=True)
+        t = len(l)
+        count = 0
+        while l[0] > 0:
+            i = 0
+            while i <= n:
+                if l[0] == 0:
+                    break
+                elif i < t and l[i] > 0:
+                    l[i] -= 1
+                i += 1
+                count += 1
+            l.sort(reverse=True)
+        return count
     
+    def leastInterval0(self, tasks, n):
+        """
+        :type tasks: List[str]
+        :type n: int
+        :rtype: int
+        """
+        task_count =collections.Counter(tasks).values()
+        M = max(task_count)
+        mct = list(task_count).count(M)
+        return max(len(tasks),(M-1)*(n+1)+mct)
+        
