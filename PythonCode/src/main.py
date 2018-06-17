@@ -22,6 +22,7 @@ words = ["Hello","Alaska","Dad","Peace"]
 buildings = [ [2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8] ]
 S = "ababcbacadefegdehijhklij"
 num = "10200"
+points = [[10,16], [2,8], [1,6], [7,12]]
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -54,4 +55,5 @@ num = "10200"
 #print(w.canJump(nums))
 #print(w.getSkyline01(buildings))
 #print(w.wiggleMaxLength(nums))
-print(w.removeKdigits(num, k))
+#print(w.removeKdigits(num, k))
+print(w.findMinArrowShots(points))

@@ -2742,4 +2742,39 @@ class Solution(object):
         return len(intervals) - cnt
     
     
+    def findMinArrowShots(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        if len(points) == 0:
+            return 0
+        points.sort(key=lambda a:a[1])
+        pre = points[0]
+        i = 1
+        count = 1
+        while i < len(points):
+            if points[i][0] <= pre[1] and points[i][1] >= pre[1]:
+                i += 1
+            else:
+                count += 1
+                pre = points[i]
+                i += 1
+        return count
+    
+    def findMinArrowShots0(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        tempend = float('-inf')
+        res = 0
+        for i in sorted(points, key=lambda i: i[1]):
+            if i[0] > tempend:
+                tempend = i[1]
+                res += 1
+        
+        return res
+    
+    
     
