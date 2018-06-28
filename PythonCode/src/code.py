@@ -2816,3 +2816,64 @@ class Solution(object):
         mct = list(task_count).count(M)
         return max(len(tasks),(M-1)*(n+1)+mct)
         
+    
+    def predictPartyVictory(self, senate):
+        """
+        :type senate: str
+        :rtype: str
+        """
+        R = 0
+        D = 0
+        Rr = 0
+        Dr = 0
+        j = 0
+        s = []
+        for i in range(len(senate)):
+            s.append(senate[i])
+            if senate[i] == "R":
+                R += 1
+            else:
+                D += 1
+        while R > 0 and D > 0:
+            if s[j] == "R":
+                if Rr != 0:
+                    Rr -= 1
+                else:
+                    D -= 1
+                    Dr += 1
+                    s.append("R")
+            else:
+                if Dr != 0:
+                    Dr -= 1
+                else:
+                    R -= 1
+                    Rr += 1 
+                    s.append("D")
+            j += 1
+        if R == 0:
+            return "Dire"
+        else:
+            return "Radiant"
+        
+    def predictPartyVictory0(self, senate):
+        """
+        :type senate: str
+        :rtype: str
+        """
+        num = 0  # num of Reeding R
+        while ('R' in senate and 'D' in senate):
+            res = []
+            for i in senate:
+                if i=='R':
+                    if num>=0:
+                        res.append(i)
+                    num+=1
+                else:
+                    if num<=0:
+                        res.append(i)
+                    num-=1
+            senate = res
+        return 'Radiant' if 'R' in senate else 'Dire'
+    
+    
+    
