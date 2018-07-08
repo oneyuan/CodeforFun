@@ -8,6 +8,7 @@ import collections
 import sys
 import re
 import operator
+import queue
 
 class ListNode:
     def __init__(self, x):
@@ -59,7 +60,11 @@ class NumArray:
 # param_1 = obj.sumRange(i,j)            
     """
     
-
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution(object):
@@ -2876,4 +2881,46 @@ class Solution(object):
         return 'Radiant' if 'R' in senate else 'Dire'
     
     
+    def isSymmetric_1(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        q = queue.Queue()
+        q.put(root)
+        q.put(root)
+        while not q.empty():
+            t1 = q.get()
+            t2 = q.get()
+            if t1 == None and t2 == None:
+                continue
+            if t1 == None or t2 == None:
+                return False
+            if t1.val != t2.val:
+                return False
+            q.put(t1.left)
+            q.put(t2.right)
+            q.put(t1.right)
+            q.put(t2.left)
+        return True
+    
+    def isSymmetric0(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return True
+        
+        return self.isSymmetricHelper(root.left, root.right)
+
+    def isSymmetricHelper(self, root1, root2):
+        if root1 == None and root2 == None:
+            return True
+        
+        elif root1 != None and root2 != None:
+            if root1.val != root2.val:
+                return False
+            
+            
     
