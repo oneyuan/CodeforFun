@@ -9,6 +9,7 @@ import sys
 import re
 import operator
 import queue
+from collections import deque
 
 class ListNode:
     def __init__(self, x):
@@ -2923,4 +2924,48 @@ class Solution(object):
                 return False
             
             
+    def levelOrder_1(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        res, kk = [], [root]
+        while root and kk:
+            tmp = []
+            res.append([i.val for i in kk if i])
+            for j in kk:
+                if j:
+                    tmp.extend([j.left, j.right])
+            kk = [i for i in tmp if i]
+        return res
+    
+    def levelOrder0(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        d = deque([(root, 0)])
+        res = []
+
+        tmp = []
+        pre_depth = 0
+        while d:
+            node, depth = d.popleft()
+            if node:
+                if depth == pre_depth:
+                    tmp.append(node.val)
+                else:
+                    pre_depth = depth
+                    res.append(tmp)
+                    tmp = [node.val]
+                if node.left:
+                    d.append((node.left, depth+1))
+                if node.right:
+                    d.append((node.right, depth+1))
+
+        if tmp:
+            res.append(tmp)
+        return res
+    
+    
     
