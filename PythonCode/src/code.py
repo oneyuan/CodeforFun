@@ -2968,4 +2968,71 @@ class Solution(object):
         return res
     
     
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        level = 1
+        res, kk = [], [root]
+        while root and kk:
+            tmp = []
+            if level % 2 == 1:
+                res.append([i.val for i in kk if i])
+                kk.reverse()
+                for j in kk:
+                    if j:
+                        tmp.append(j.right)
+                        tmp.append(j.left)
+            else:
+                res.append([i.val for i in kk if i])
+                kk.reverse()
+                for j in kk:
+                    if j:
+                        tmp.append(j.left)
+                        tmp.append(j.right)
+            level += 1
+            kk = [k for k in tmp if k]
+        return res
+    
+    def zigzagLevelOrder0(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        the run time is the same as the solution above
+        """
+        if not root:
+            return []
+        queue = [root]
+        direct = True
+        layer = []
+        res = []
+        ans = []
+        while queue!=[]:
+            a = queue.pop(0)
+            if direct:
+                if a.left:
+                    layer.append(a.left)
+                if a.right:
+                    layer.append(a.right)
+                ans.append(a.val)
+            else:
+                if a.left:
+                    layer.append(a.left)
+                if a.right:
+                    layer.append(a.right)
+                ans.insert(0, a.val)
+            if queue == []:
+                
+                if ans != []:
+                    res.append(ans)
+                ans = []
+                queue = list(layer)
+                layer = []
+                direct = not direct
+         
+        
+        return res
+    
+    
     
