@@ -23,6 +23,7 @@ buildings = [ [2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8] ]
 S = "ababcbacadefegdehijhklij"
 num = "10200"
 points = [[10,16], [2,8], [1,6], [7,12]]
+strs = ["flower","flow","flight"]
 #print(w.maximumProduct2(a))
 #print(w.isToeplitzMatrix(matrix))
 #print(len(matrix[1]))
@@ -56,4 +57,9 @@ points = [[10,16], [2,8], [1,6], [7,12]]
 #print(w.getSkyline01(buildings))
 #print(w.wiggleMaxLength(nums))
 #print(w.removeKdigits(num, k))
-print(w.findMinArrowShots(points))
+#print(w.findMinArrowShots(points))
+"""
+print(zip(*strs))
+for i,ch in enumerate(zip(*strs)):
+    print (i, ch)
+"""
