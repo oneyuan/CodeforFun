@@ -3782,4 +3782,54 @@ class Solution(object):
         return result
     
     
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        res = []
+        tmp = []
+        digits_to_letters_mapping = {
+            "2": ['a','b','c'],
+            "3": ['d','e','f'],
+            "4": ['g','h','i'],
+            "5": ['j','k','l'],
+            "6": ['m','n','o'],
+            "7": ['p','q','r','s'],
+            "8": ['t','u','v'],
+            "9": ['w','x','y','z']
+        }
+        for i in range(len(digits)):
+            if res:
+                for j in res:
+                    for k in digits_to_letters_mapping[digits[i]]:
+                        tmp.append(j+k)
+                res = [l for l in tmp]
+                tmp = []
+            else:
+                res =[l for l in digits_to_letters_mapping[digits[i]]]
+        return res
+    
+    def letterCombinations0(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        MAPPING = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl', '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
+        def helper(digits, dex):
+            if dex >= len(digits):
+                return ['']
+            combos = helper(digits, dex + 1)
+            possibles = MAPPING[digits[dex]]
+            ans = []
+            for combo in combos:
+                for possible in possibles:
+                    ans.append(possible + combo)
+            return ans
+        
+        
+        if len(digits) == 0: return []
+        return helper(digits, 0)
+    
+    
     
