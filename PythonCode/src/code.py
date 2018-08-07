@@ -3688,4 +3688,98 @@ class Solution(object):
             return min(strs,key = len)
     
     
+    def threeSum_1(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        res = []
+        for i in range(len(nums)):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            l = i + 1
+            r = len(nums)-1
+            while l < r:
+                total = nums[i] + nums[l] + nums[r]
+                if total > 0:
+                    r -= 1
+                elif total < 0:
+                    l += 1
+                else:
+                    res.append([nums[i], nums[l], nums[r]])
+                    while l < r and nums[l] == nums[l+1]:
+                        l += 1
+                    while l < r and nums[r] == nums[r-1]:
+                        r -= 1
+                    l += 1
+                    r -= 1
+        return res
+    
+    def threeSum0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        from bisect import bisect_left, bisect_right
+        m = {}
+        result = []
+        positive_keys = []
+        negative_keys = []
+        for n in nums:
+            if n in m:
+                m[n] += 1
+            else:
+                m[n] = 1
+
+        if 0 in m and m[0] >= 3:
+            result.append([0, 0, 0])
+
+        keys = list(m.keys())
+        keys.sort()
+        print(keys)
+        keys_num = len(keys)
+
+        if keys_num == 0:
+            return []
+
+        # a<b<c。a一定小于0，c一定大于0
+        end = bisect_left(keys, 0)  # a < 0
+        begin = bisect_left(keys, -keys[-1] * 2)  # when b == c, a + b + c = a + 2c <= a + 2*max_c;
+        #        print('a in [{}:{}]'.format(begin, end))
+        for i in range(begin, end):
+            a = keys[i]
+
+            # b == c
+            if a != 0 and m[a] >= 2 and -2 * a in m:
+                result.append([a, a, -2 * a])
+
+            # b的取值范围
+            # -a - b = c <= keys[-1] >>>> b >= -keys[-1] - a
+            min_b = -keys[-1] - a
+            # b<c >>>> a + 2b < a + b + c = 0 >>>> b < -a/2
+            max_b = -a / 2
+
+            b_begin = max(i + 1, bisect_left(keys, min_b))  # b的最小值
+            b_end = bisect_right(keys, max_b)  # b的最大值
+            #            print('a = {}, {} <= b < {}, in [{}:{}]'.format(a, min_b, max_b, b_begin, b_end))
+            for j in range(b_begin, b_end):
+                b = keys[j]
+                #                print('key[{}] = {}, key[{}] = {}'.format(i, a, j, b))
+                c = -a - b
+                if c in m:
+                    if b > c:
+                        continue
+                    if b < c or m[b] >= 2:
+                        #                        print('========', [a, b, c])
+                        result.append([a, b, c])
+
+        #        Solution.case_length.append(len(nums))
+        #        Solution.case_index +=1
+        #        if Solution.case_index == 1:
+        #            print(Solution.case_length)
+        #            raise Exception(1)
+        return result
+    
+    
     

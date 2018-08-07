@@ -5,7 +5,7 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [1,1,1,7,7,2,3,7,7]
+nums = [-1, 0, 1, 2, -1, -4]
 val = 0
 k = 1
 nums1 = [4,2,1]
@@ -63,3 +63,4 @@ print(zip(*strs))
 for i,ch in enumerate(zip(*strs)):
     print (i, ch)
 """
+print(w.threeSum(nums))
