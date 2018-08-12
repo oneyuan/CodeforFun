@@ -5,7 +5,7 @@ w = code.Solution()
 a = [-1,-2,-3]
 matrix = [[0,19,54,9],[47,9,19,54],[11,47,9,19]]
 cost = [10, 15, 20]
-nums = [-1, 0, 1, 2, -1, -4]
+nums = [1, 0, -1, 0, -2, 2]
 val = 0
 k = 1
 nums1 = [4,2,1]
@@ -14,7 +14,7 @@ M = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]]
 flowerbed = [0,1,0]
 n = 1
 numbers = [1,2,3,4,4,9,56,90]
-target = 9
+target = 0
 s = "egg"
 t = "add"
 t = "2*3-4*5"
@@ -65,4 +65,5 @@ for i,ch in enumerate(zip(*strs)):
     print (i, ch)
 """
 #print(w.threeSum(nums))
-print(w.letterCombinations0(digits))
+#print(w.letterCombinations0(digits))
+print(w.fourSum0(nums, target))

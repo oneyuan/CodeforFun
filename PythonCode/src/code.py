@@ -3906,3 +3906,79 @@ class Solution(object):
         result = sorted(result, key=lambda x: abs(x - target))
                     
         return result[0]
+    
+    
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        i = 0
+        n = len(nums)
+        res = []
+        if n < 4:
+            return res
+        
+        nums.sort()
+        while i < n-3:
+            for j in range(i+1, n-2):
+                l = j + 1
+                r = n - 1
+                while l < r:
+                    t = nums[i] + nums[j] + nums[l] + nums[r]
+                    if t < target:
+                        l += 1
+                    elif t > target:
+                        r -= 1
+                    else:
+                        if [nums[i], nums[j], nums[l], nums[r]] not in res:
+                                res.append([nums[i], nums[j], nums[l], nums[r]])
+                        while l < r and nums[l] == nums[l+1]:
+                            l += 1
+                        while l < r and nums[r] == nums[r-1]:
+                            r -= 1
+                        l += 1
+                        r -= 1
+            i += 1
+        return res
+    
+    
+    def fourSum0(self, nums, target):
+        
+        def findNSum(nums, begin, target, N, midret, ret):
+            if len(nums) - begin < N or N < 2:
+                return
+
+            if N == 2:
+                lo = begin
+                hi = len(nums) - 1
+                while lo < hi:
+                    tmp = nums[lo] + nums[hi]
+                    if tmp > target:
+                        hi -= 1
+                    elif tmp < target:
+                        lo += 1
+                    else:
+                        ret.append(midret + [nums[lo], nums[hi]])
+                        while lo < hi and nums[hi] == nums[hi - 1]:
+                            hi -= 1
+                        while lo < hi and nums[lo] == nums[lo + 1]:
+                            lo += 1
+                        hi -= 1
+                        lo += 1
+            else:
+                for i in range(begin, len(nums) - (N - 1)):
+                    if i > begin and nums[i] == nums[i - 1]:
+                        continue
+                    if nums[i]*N > target or nums[-1]*N < target:
+                        break
+            # if nums[i] + nums[i + 1] * (N - 1) > target or nums[i] + nums[-1] * (N - 1) < target:
+            #     continue
+                    findNSum(nums, i + 1, target - nums[i], N - 1, midret + [nums[i]], ret)
+
+        
+        nums.sort()
+        ret = []
+        findNSum(nums, 0, target, 4, [], ret)
+        return ret
