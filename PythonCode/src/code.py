@@ -3982,3 +3982,58 @@ class Solution(object):
         ret = []
         findNSum(nums, 0, target, 4, [], ret)
         return ret
+    
+    
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        tmp = [head]
+        t = head.next
+        if not t:
+            return []
+        while t:
+            tmp.append(t)
+            t = t.next
+        if tmp[-n] == tmp[0]:
+            return tmp[1]
+        else:
+            if tmp[-n].next == None:
+                tmp[-n-1].next = None
+            else:
+                tmp[-n-1].next = tmp[-n+1]
+        return head
+    
+    def removeNthFromEnd0(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        # Time: O(n)
+        # Space: O(1)
+        dummy = ListNode(0)
+        dummy.next = head
+        walker = dummy
+        runner = dummy
+        # dummy = prev = ListNode(0) 
+        # prev.next = head
+        
+        for i in range(n):
+            runner = runner.next
+            
+        while runner and runner.next:
+            runner = runner.next
+            walker = walker.next
+        
+        # if not walker.next:
+        #     return head.next
+        # else:
+        walker.next = walker.next.next
+        
+        return dummy.next
+            
+    
+        
