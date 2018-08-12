@@ -3832,4 +3832,77 @@ class Solution(object):
         return helper(digits, 0)
     
     
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        distance = float("inf")
+        n = len(nums)
+        nums.sort()
+        for i in range(0, n-2):
+            l = i + 1
+            r = n - 1
+            if i-1 >= 0:
+                if nums[i] == nums[i-1]:
+                    continue
+            while l < r:
+                s = nums[i] + nums[l] + nums[r]
+                d = abs(s - target)
+                if s == target:
+                    print (s)
+                    return target
+                elif d < distance:
+                    res = s
+                    distance = d
+                if s > target:
+                    r -= 1
+                elif s < target:
+                    l += 1
+        return res
     
+    def threeSumClosest0(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if len(nums) == 3:
+            return sum(nums)
+        
+        nums = sorted(nums)
+        
+        if nums[0] + nums[1] + nums[2] > target:
+            return nums[0] + nums[1] + nums[2]
+        if nums[-1] + nums[-2] + nums[-3] < target:
+            return nums[-1] + nums[-2] + nums[-3]
+        
+        best = float('inf')
+        max_index = len(nums) - 2
+        result = []
+        
+        for i in range(len(nums) - 2):
+            s, e = i + 1, len(nums) - 1
+            if nums[i] + nums[e] + nums[e-1] < target:
+                result.append(nums[i] + nums[e] + nums[e-1])
+                continue
+            if nums[i] + nums[s] + nums[s+1] > target:
+                result.append(nums[i] + nums[s] + nums[s+1])
+            else:
+                while s < e and s <= max_index:
+                    r = nums[i] + nums[s] + nums[e]
+                    result.append(r)
+
+                    if r > target:
+                        e -= 1
+                    elif r < target:
+                        s += 1
+                    else:
+                        return target
+                
+            max_index = s
+            
+        result = sorted(result, key=lambda x: abs(x - target))
+                    
+        return result[0]
