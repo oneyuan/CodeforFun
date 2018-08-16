@@ -4036,4 +4036,52 @@ class Solution(object):
         return dummy.next
             
     
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if not s:
+            return True
+        tmp = []
+        mapping = {
+            "(": 1,
+            ")": -1,
+            "[": 2,
+            "]": -2,
+            "{": 3,
+            "}": -3
+        }
+        for i in range(len(s)):
+            if mapping[s[i]] > 0 :
+                tmp.append(mapping[s[i]])
+            else:
+                try:
+                    k = tmp.pop()
+                except:
+                    return False
+                if k != -mapping[s[i]]:
+                    return False
+        if tmp:
+            return False
+        else:
+            return True
         
+    def isValid0(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        st=[None]
+        compare={")":"(","]":"[","}":"{"}
+        for i in s:
+            if(i in compare):
+                if(st.pop()!=compare[i]):
+                    return(False)
+            else:
+                st.append(i)
+        print(st)
+        return(len(st)==1)
+    
+    
+    
