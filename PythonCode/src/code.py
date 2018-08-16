@@ -4084,4 +4084,63 @@ class Solution(object):
         return(len(st)==1)
     
     
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if l1 == None and l2 == None:
+            return l1
+        elif l1 == None:
+            return l2
+        elif l2 == None:
+            return l1
+        if l1.val <= l2.val:
+            res = l1
+            f = l1.next
+            s = l2
+        else:
+            res = l2
+            f = l1
+            s = l2.next
+        tmp = res
+        while f or s:
+            if f and s:
+                if f.val <= s.val:
+                    tmp.next = f
+                    tmp = tmp.next
+                    f = f.next
+                else:
+                    tmp.next = s
+                    tmp = tmp.next
+                    s = s.next
+            else:
+                if f:
+                    tmp.next = f
+                    f = None
+                elif s:
+                    tmp.next = s
+                    s = None
+        return res
+    
+    def mergeTwoLists0(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        dummy = cur = ListNode(0)
+        while l1 and l2:
+            if l1.val < l2.val:
+                cur.next = l1
+                l1 = l1.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+            cur = cur.next
+        cur.next = l1 or l2
+        return dummy.next
+    
+    
     
