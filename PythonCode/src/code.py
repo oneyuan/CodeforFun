@@ -4178,4 +4178,50 @@ class Solution(object):
         return res
     
     
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        pre = ListNode(0)
+        point = head
+        if not head:
+            return head
+        if point.next:
+            res = point.next
+        else:
+            return point
+        while point and point.next:
+            pn = point.next
+            pre.next = pn
+            if pn.next:
+                tmp = pn.next
+            else:
+                tmp = None
+            pn.next = point
+            pre = point
+            point = tmp
+        pre.next = point
+        return res
+    
+    def swapPairs0(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        pre = dummyHead = ListNode(0)
+        
+        if head is None or head.next is None:
+            return head
+        while head and head.next:
+            nxt = head.next.next
+            pre.next = head.next
+            head.next.next = head
+            pre = head
+            # head = nxt
+            head.next = nxt
+            head = head.next
+        return dummyHead.next
+    
+    
     
