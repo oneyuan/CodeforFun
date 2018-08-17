@@ -4143,4 +4143,39 @@ class Solution(object):
         return dummy.next
     
     
+    def generateParenthesis_1(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        if n == 0:
+            return [""]
+        res = []
+        for i in range(n):
+            for left in self.generateParenthesis(i):
+                for right in self.generateParenthesis(n-i-1):
+                    res.append(("({}){}").format(left, right))
+        return res
+    
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        res =[]
+        def fun(s,num_l):
+            if num_l == n:
+                res.append(s + ')'*(2*n-len(s)))
+                return
+            num_r = len(s) - num_l
+            if num_l == num_r:
+                fun(s + '(', num_l + 1)
+            else:
+                fun(s + ')', num_l)
+                fun(s + '(', num_l + 1)
+            return
+        fun("",0)
+        return res
+    
+    
     
