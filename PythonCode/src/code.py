@@ -4224,4 +4224,49 @@ class Solution(object):
         return dummyHead.next
     
     
+    def reverseKGroup_1(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        dummy = jump = ListNode(0)
+        dummy.next = l = tmp = head
+        while True:
+            i = 0
+            while tmp and i < k:
+                tmp = tmp.next
+                i += 1
+            if i == k:
+                pre, cur = tmp, l
+                for _ in range(k):
+                    cur.next, cur, pre = pre, cur.next, cur
+                jump.next, jump, l = pre, l, tmp
+            else:
+                return dummy.next
+            
+    def reverseKGroup0(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        
+        dummy = jump = ListNode(0)
+        dummy.next = l = r = head
+
+        while True:
+            count = 0
+            while r and count < k:   # use r to locate the range
+                r = r.next
+                count += 1
+            if count == k:  # if size k satisfied, reverse the inner linked list
+                pre, cur = r, l
+                for _ in range(k):
+                    cur.next, cur, pre = pre, cur.next, cur  # standard reversing
+                jump.next, jump, l = pre, l, r  # connect two k-groups
+            else:
+                return dummy.next
+            
+    
     
