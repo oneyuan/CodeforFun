@@ -2265,7 +2265,7 @@ class Solution(object):
         m = len(grid)
         n = len(grid[0])
         t = 0
-        res = [[0 for i in range(n+1)]]
+        res = [[0 for _ in range(n+1)]]
         for k in range(m):
             tmp = [0]
             for j in range(n):
@@ -4021,7 +4021,7 @@ class Solution(object):
         # dummy = prev = ListNode(0) 
         # prev.next = head
         
-        for i in range(n):
+        for _ in range(n):
             runner = runner.next
             
         while runner and runner.next:
