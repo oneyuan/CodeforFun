@@ -4298,4 +4298,41 @@ class Solution(object):
         return haystack.find(needle)
     
     
+    def findSubstring(self, s, words):
+        """
+        :type s: str
+        :type words: List[str]
+        :rtype: List[int]
+        """
+        dic = {}
+        res = []
+        w = len(words)
+        for word in words:
+            if word in dic:
+                dic[word] += 1
+            else:
+                dic[word] = 1
+        if words:
+            t = len(words[0])
+            if len(s) < w*t:
+                return res
+        else:
+            return res
+        for i in range(len(s)-w*t+1):
+            left = i
+            right = left + t
+            l = slice(left, right)
+            tmp = dic.copy()
+            while s[l] in dic and tmp[s[l]] != 0:
+                tmp[s[l]] -= 1
+                left = right
+                right = left + t
+                l = slice(left, right)
+                if set(list(tmp.values())) == {0}:
+                    res.append(i)
+        if res:
+            return res
+        else:
+            return []
+        
     
