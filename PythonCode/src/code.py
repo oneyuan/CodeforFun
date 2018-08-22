@@ -4269,4 +4269,33 @@ class Solution(object):
                 return dummy.next
             
     
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if not needle:
+            return 0
+        for i in range(len(haystack)-len(needle)+1):
+            r = 0
+            if haystack[i] == needle[0]:
+                for j in range(1, len(needle)):
+                    if haystack[i+j] != needle[j]:
+                        r = -1
+            else:
+                r = -1
+            if r == 0:
+                return i
+        return -1
+    
+    def strStr0(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        return haystack.find(needle)
+    
+    
     
