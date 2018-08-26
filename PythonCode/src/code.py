@@ -4375,3 +4375,53 @@ class Solution(object):
                     strstart+=lenword
                 if wordstart-strstart==lensubstr:
                     ans.append(strstart)
+                    
+                    
+    def nextPermutation_1(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        i = n-2
+        while i >= 0 and nums[i+1] <= nums[i]:
+            i -= 1
+        if i >= 0:
+            j = n - 1
+            while j >= 0 and nums[j] <= nums[i]:
+                j -= 1 
+            nums[i], nums[j] = nums[j], nums[i]
+        tmp = nums[i+1:]
+        tmp.sort()
+        nums[i+1:] = tmp
+        
+    def nextPermutation0(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        def reverse(nums, l, r):
+            while l < r:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1
+                r -= 1
+        
+        start = len(nums) - 1
+        curr = nums[start]
+        while start >= 0:
+            if nums[start] < curr:
+                break
+            curr = nums[start]
+            start -= 1
+        if start == -1:
+            reverse(nums, 0, len(nums) - 1)
+            return
+        end = len(nums) - 1
+        while start < end and nums[start] >= nums[end]:
+            end -= 1
+        nums[start], nums[end] = nums[end], nums[start]
+        reverse(nums, start + 1, len(nums) - 1)
+    
+    
+    
+        
