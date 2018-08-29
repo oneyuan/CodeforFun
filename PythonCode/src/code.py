@@ -4423,5 +4423,53 @@ class Solution(object):
         reverse(nums, start + 1, len(nums) - 1)
     
     
-    
+    def longestValidParentheses_1(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        l = [-1]
+        n = len(s)
+        res = 0
+        for i in range(n):
+            if s[i] == "(":
+                l.append(i)
+            else:
+                l.pop()
+                if not l:
+                    l.append(i)
+                else:
+                    res = max(res, i-l[-1])
+        return res
         
+    def longestValidParentheses0(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if not s:
+            return 0
+        left, right, max_res = 0, 0, 0
+        for ch in s:
+            if ch == '(':
+                left += 1
+            else:
+                right += 1
+                if right == left:
+                    max_res = max(left + right, max_res)
+                elif right > left:
+                    left = right = 0
+        left = right = 0         
+        for ch in s[::-1]:
+            if ch == ')':
+                right += 1
+            else:
+                left += 1
+                if left == right:
+                    max_res = max(left+right, max_res)
+                elif left > right:
+                    left = right = 0
+        return max_res
+    
+    
+            
