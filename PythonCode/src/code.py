@@ -4514,4 +4514,75 @@ class Solution(object):
         return -1
     
     
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        n = len(nums)
+        low = 0 
+        high = n-1
+        while low < high:
+            mid = (low + high)//2
+            if nums[mid]== target:
+                high = mid
+            elif nums[mid] > target:
+                high = mid - 1
+            elif nums[mid] < target:
+                low = mid + 1
+        left = low
+        if left == n or nums[left] != target:
+            return [-1, -1]
+        high = n - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if nums[mid] == target:
+                low = mid + 1
+            elif nums[mid] > target:
+                high = mid - 1
+        right = high
+        return [left, right]
+    
+    def searchRange0(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        def left_bound(nums, target):
+            start = 0
+            end = len(nums) -1
+            while start <= end:
+                mid = (start + end)//2
+                if nums[mid] == target:
+                    if mid == 0 or nums[mid - 1] < target:
+                        return mid
+                    end = mid -1
+                elif nums[mid] > target:
+                    end = mid -1
+                elif nums[mid] < target:
+                    start = mid + 1
+            return -1
+    
+        def right_bound(nums, target):
+            start = 0
+            end = len(nums) -1
+            while start <=end:
+                mid = (start + end)//2
+                if nums[mid] == target:
+                    if mid == len(nums) -1 or nums[mid + 1] > target:
+                        return mid
+                    start = mid +1
+                elif nums[mid] > target:
+                    end = mid -1
+                elif nums[mid] < target:
+                    start = mid + 1
+            return -1
+        
+        left = left_bound(nums, target)
+        right = right_bound(nums,target)
+        return [left, right]
+    
+    
     
