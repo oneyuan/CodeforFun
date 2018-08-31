@@ -4585,4 +4585,31 @@ class Solution(object):
         return [left, right]
     
     
+    def isValidSudoku_1(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        v = sum(([(i,c), (c,j), (i//3,j//3,c)] 
+                 for i, row in enumerate(board)
+                 for j, c in enumerate(row)
+                 if c != '.'), [])
+        if len(v) == len(set(v)):
+            return True
+        else:
+            return False
+    
+    def isValidSudoku0(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        seen = []
+        for i, row in enumerate(board):
+            for j, c in enumerate(row):
+                if c != '.':
+                    seen += [(c,j),(i,c),(i//3,j//3,c)]
+        return len(seen) == len(set(seen))
+    
+    
     
