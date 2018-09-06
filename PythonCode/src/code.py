@@ -4612,4 +4612,153 @@ class Solution(object):
         return len(seen) == len(set(seen))
     
     
+    def solveSudoku_1(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        def checkRow(board, row, ch):
+            for col in range(9):
+                if board[row][col] == ch:
+                    return False
+            return True
+        
+        def checkCol(board, col, ch):
+            for row in range(9):
+                if board[row][col] == ch:
+                    return False
+            return True
+        
+        def checkSquare(board, row, col, ch):
+            for i in range(row, row+3):
+                for j in range(col, col+3):
+                    if board[i][j] == ch:
+                        return False
+            return True
+        
+        def findUnsign(board):
+            for i in range(9):
+                for j in range(9):
+                    if board[i][j] == ".":
+                        return i, j
+            return [-1, -1]
+        
+        def solve(board):
+            row, col = findUnsign(board)
+            if row == -1 and col == -1:
+                return True
+            boxrow = row - row % 3
+            boxcol = col - col % 3
+            for num in ["1","2","3","4","5","6","7","8","9"]:
+                if checkRow(board, row, num) and checkCol(board, col, num) and checkSquare(board, boxrow, boxcol, num):
+                    board[row][col] = num
+                    if solve(board):
+                        return True
+                    board[row][col] = "."
+        
+        solve(board)
+        
+def convertCharToInt(char):
+    return ord(char) - ord('0')
+
+class Sudoku:
+    def __init__(self, board):
+        self.blocks = [set(range(1,10)) for x in range(9)]
+        self.lines =  [set(range(1,10)) for x in range(9)]
+        self.columns = [set(range(1,10)) for x in range(9)]
+        self.numberOfSquaresToBeFound = 0
+        self.board = board
+
+        for i in range(0, 9):
+            for j in range(0, 9):
+                if board[i][j] != '.':
+                    self.updatePossibleValuesAfterSetValue(i, j, convertCharToInt(board[i][j]))
+                else:
+                    self.numberOfSquaresToBeFound += 1
+
+
+    def getLinePossibleValues(self, i, j):
+        return self.lines[i]
+
+    def getColumnPossibleValues(self, i, j):
+        return self.columns[j]
+
+    def getBlockPossibleValues(self, i, j):
+        return self.blocks[(i // 3) * 3 + (j // 3)]
+
+    def getSquarePossibleValues(self, i, j):
+        return self.getLinePossibleValues(i ,j) & self.getColumnPossibleValues(i, j) & self.getBlockPossibleValues(i, j)
+
+    def updatePossibleValuesAfterSetValue(self, i ,j, actualValue):
+        self.getLinePossibleValues(i, j).remove(actualValue)
+        self.getColumnPossibleValues(i, j).remove(actualValue)
+        self.getBlockPossibleValues(i, j).remove(actualValue)
+
+    def updatePossibleValuesAfterUnsetValue(self, i ,j, valueRemoved):
+        self.getLinePossibleValues(i, j).add(valueRemoved)
+        self.getColumnPossibleValues(i, j).add(valueRemoved)
+        self.getBlockPossibleValues(i, j).add(valueRemoved)
+
+    def setValue(self, i, j, value, valuesSetted):
+        self.board[i][j] = str(value)
+        self.numberOfSquaresToBeFound -= 1
+        self.updatePossibleValuesAfterSetValue(i, j, convertCharToInt(self.board[i][j]))
+        valuesSetted.append([i, j])
+
+    def unsetValue(self, i, j):
+        valueRemoved = convertCharToInt(self.board[i][j])
+        self.board[i][j] = '.'
+        self.numberOfSquaresToBeFound += 1
+        self.updatePossibleValuesAfterUnsetValue(i ,j, valueRemoved)
+    def unsetValues(self, valuesSetted):
+        for coordinates in valuesSetted:
+            self.unsetValue(coordinates[0], coordinates[1])
+
+    def solveInternal(self, valuesSetted):
+        squareFoundDuringPas = True
+        numberOfPreviousIterWithNoSquareFound = 0
+        while self.numberOfSquaresToBeFound > 0:
+            squareFoundDuringPass = False
+
+            for i in range(0, 9):
+                for j in range(0, 9):
+                    if self.board[i][j] == '.':
+                        possibleValues = self.getSquarePossibleValues(i, j)
+                        if not possibleValues:
+                            return False
+                        elif len(possibleValues) == 1:
+                            self.setValue(i ,j, possibleValues.pop(), valuesSetted)
+                            squareFoundDuringPass = True
+                        elif len(possibleValues) <= (numberOfPreviousIterWithNoSquareFound + 1):
+                            for valueToTry in possibleValues:
+                                newValuesSetted = []
+                                self.setValue(i, j, valueToTry, newValuesSetted)
+                                if self.solveInternal(newValuesSetted):
+                                    return True
+                                else:
+                                    self.unsetValues(newValuesSetted)
+                            return False;
+            if not squareFoundDuringPass:
+                numberOfPreviousIterWithNoSquareFound += 1
+            else:
+                numberOfPreviousIterWithNoSquareFound = 0
+
+
+        if self.numberOfSquaresToBeFound == 0:
+            return True
+        else:
+            return False
+
+    def solve(self):
+        return self.solveInternal([])
+
+
+    def solveSudoku0(self, board):
+        sudoku = Sudoku(board)
+        sudoku.solve()
+        """
+        :type board: List[List[str]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """    
+    
     
