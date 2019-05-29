@@ -61,7 +61,7 @@ class Solution:
                 count[barcode] += 1
             else:
                 count[barcode] = 1
-        barcodes.sort()
+        barcodes.sort()   # if there miss this line the next sort function will work funny it will just sort by count[x] the x might be x1, x2 mixed order
         barcodes.sort(key = lambda x:count[x])
         res = [0 for _ in range(n)]
         for i in range(0, n ,2):
