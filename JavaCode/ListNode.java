@@ -9,6 +9,11 @@ public class ListNode {
         val = x;
     }
 
+    ListNode(int x, ListNode node) {
+        val = x;
+        next = node;
+    }
+
     public static ListNode createList(int... values) {
         ListNode head = new ListNode(values[0]);
         ListNode prev = head;
